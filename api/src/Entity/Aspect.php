@@ -39,7 +39,7 @@ class Aspect
 	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
 	 */
 	private $id;
-	
+
 	/**
 	 * @var string The RSIN of the organization that ownes this item reviewd
 	 *
@@ -56,8 +56,8 @@ class Aspect
 
     /**
      * @var string $itemType The type of item that this aspect belongs to, e.g a product
-     * @example pdc.zaakonline.nl/products/
-     * 
+     * @example https://pdc.zaakonline.nl/products/
+     *
      * @Assert\Url
      * @Assert\Length(
      *      max = 255
@@ -66,10 +66,10 @@ class Aspect
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $itemType;
-        
+
     /**
      * @var string $item A specific that this aspect belongs to, e.g a single  product
-     * @example pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
+     * @example https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
      *
      * @Assert\Url
      * @Assert\Length(
@@ -79,7 +79,7 @@ class Aspect
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $item;
-    
+
     /**
      * @var integer The best posbile rating that could be given for this aspect
      * @example 10
@@ -87,7 +87,7 @@ class Aspect
      * @ORM\Column(type="integer")
      */
     private $bestRating = 10;
-    
+
     /**
      * @var integer The worst posbile rating that could be given this aspect
      * @example 1
@@ -99,7 +99,7 @@ class Aspect
     /**
      * @var string $name The name of this review aspect
      * @example colour
-     * 
+     *
 	 * @Assert\NotNull
      * @Assert\Length(
      *      max = 255
@@ -111,8 +111,8 @@ class Aspect
 
     /**
      * @var string $description The description of this review aspect
-     * @example was the colour of the product  what you expected it to be? 
-     * 
+     * @example was the colour of the product  what you expected it to be?
+     *
      * @Assert\Length(
      *      max = 2255
      * )
@@ -126,7 +126,7 @@ class Aspect
      * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="reviewAspect", orphanRemoval=true)
      */
     private $ratings;
-    
+
     /**
      * @var Datetime The moment this component was found by the crawler
      *
@@ -135,7 +135,7 @@ class Aspect
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
-    
+
     /**
      * @var Datetime The last time this component was changed
      *
@@ -178,40 +178,40 @@ class Aspect
 
         return $this;
     }
-    
+
     public function getItem(): ?string
     {
     	return $this->item;
     }
-    
+
     public function setItem(string $item): self
     {
     	$this->item= $item;
-    	
+
     	return $this;
     }
-    
+
     public function getBestRating(): ?int
     {
     	return $this->bestRating;
     }
-    
+
     public function setBestRating(int $bestRating): self
     {
     	$this->bestRating = $bestRating;
-    	
+
     	return $this;
     }
-    
+
     public function getWorstRating(): ?int
     {
     	return $this->worstRating;
     }
-    
+
     public function setWorstRating(int $worstRating): self
     {
     	$this->worstRating = $worstRating;
-    	
+
     	return $this;
     }
 
@@ -269,28 +269,28 @@ class Aspect
 
         return $this;
     }
-    
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
     	return $this->createdAt;
     }
-    
+
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
     	$this->createdAt = $createdAt;
-    	
+
     	return $this;
     }
-    
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
     	return $this->updatedAt;
     }
-    
+
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
     	$this->updatedAt = $updatedAt;
-    	
+
     	return $this;
     }
 }
