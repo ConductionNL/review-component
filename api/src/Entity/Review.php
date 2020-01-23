@@ -41,7 +41,7 @@ class Review
 	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
 	 */
 	private $id;
-	
+
 	/**
 	 * @var string The RSIN of the organization that ownes this item reviewd
 	 *
@@ -56,10 +56,10 @@ class Review
 	 */
 	private $organization;
 
-    
+
     /**
      * @var string $itemReviewed A specific commonground resource that is being reviewd, e.g a single product
-     * @example pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
+     * @example https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
      *
      * @Assert\Url
      * @Assert\Length(
@@ -86,29 +86,29 @@ class Review
     /**
      * @MaxDepth(1)
      * @Groups({"read", "write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="review", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="review", orphanRemoval=true,cascade={"persist"})
      */
     private $ratings;
-    
+
     /**
-     * @var float The overall rating, based on a collection of ratings, of this review rounded to a single decimal. 
+     * @var float The overall rating, based on a collection of ratings, of this review rounded to a single decimal.
      * @example 5,5
-     * 
+     *
      * @Groups({"read"})
      */
     private $aggregateRating;
-    
+
     /**
-     * @var Datetime The moment this component was found by the crawler
+     * @var DateTime The moment this component was found by the crawler
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
-    
+
     /**
-     * @var Datetime The last time this component was changed
+     * @var DateTime The last time this component was changed
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
@@ -192,7 +192,7 @@ class Review
 
         return $this;
     }
-        
+
     public function getAggregateRating(): ?float
     {
     	// Lets get al the rating values
@@ -200,35 +200,38 @@ class Review
     	foreach($this->ratings as $rating){
     		$ratingArray[] = $rating->getRatingValue();
     	}
-    	
-    	// Lets calculate the avarage
-    	$aggregate = array_sum($ratingArray) / count($ratingArray);
-    	
+    	if(count($ratingArray) > 0) {
+            // Lets calculate the avarage
+            $aggregate = array_sum($ratingArray) / count($ratingArray);
+        }
+    	else{
+    	    $aggregate = 0;
+        }
     	// Round to one decimal (round down making 1.55 into 1 . 1.5)
-    	return round($aggregate, 1, 'PHP_ROUND_HALF_DOWN');
+    	return round($aggregate, 1, PHP_ROUND_HALF_DOWN);
     }
-    
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
     	return $this->createdAt;
     }
-    
+
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
     	$this->createdAt = $createdAt;
-    	
+
     	return $this;
     }
-    
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
     	return $this->updatedAt;
     }
-    
+
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
     	$this->updatedAt = $updatedAt;
-    	
+
     	return $this;
     }
 }

@@ -43,6 +43,9 @@ class Rating
 	private $id;
 
     /**
+     *
+     * @Assert\NotNull
+     * @Groups({"read","write"})
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Review", inversedBy="ratings")
      * @ORM\JoinColumn(nullable=false)
@@ -51,27 +54,27 @@ class Rating
 
     /**
      * @var string $author A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review
-     * 
-     * @example https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6    
-     * 
-     * @Groups({"read"})  
+     *
+     * @example https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6
+     *
+     * @Groups({"read"})
      */
     private $author;
 
     /**
      * @var integer The best posbile rating that could be given
-     * 
+     *
      * @example 10
-     * 
+     *
      * @Groups({"read"})
      */
     private $bestRating;
 
     /**
      * @var integer The worst posbile rating that could be given
-     * 
+     *
      * @example 1
-     * 
+     *
      * @Groups({"read"})
      */
     private $worstRating;
@@ -79,11 +82,11 @@ class Rating
     /**
      * @var integer an explanation for the given rating
      * @example 5
-     * 
+     *
 	 * @Assert\NotNull
      * @Assert\Length(
      *      max = 2
-     * ) 
+     * )
      * @Assert\Positive
      * @Groups({"read", "write"})
      * @ORM\Column(type="integer")
@@ -92,8 +95,8 @@ class Rating
 
     /**
      * @var string The rating given
-     * @example I realy like the color!
-     * 
+     * @example I really like the color!
+     *
      * @Assert\Length(
      *      max = 2255
      * )
@@ -104,14 +107,14 @@ class Rating
 
     /**
      * The aspect of the item that is rated
-     * 
+     *
      * @MaxDepth(1)
      * @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Aspect", inversedBy="ratings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $reviewAspect;
-    
+
     /**
      * @var Datetime The moment this component was found by the crawler
      *
@@ -120,7 +123,7 @@ class Rating
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
-    
+
     /**
      * @var Datetime The last time this component was changed
      *
@@ -197,28 +200,28 @@ class Rating
 
         return $this;
     }
-    
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
     	return $this->createdAt;
     }
-    
+
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
     	$this->createdAt = $createdAt;
-    	
+
     	return $this;
     }
-    
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
     	return $this->updatedAt;
     }
-    
+
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
     	$this->updatedAt = $updatedAt;
-    	
+
     	return $this;
     }
 }
