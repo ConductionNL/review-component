@@ -13,10 +13,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-use Twig_Environment as Environment;
-
-use App\Entity\Template;
-
 //use App\Service\MailService;
 //use App\Service\MessageService;
 
@@ -24,40 +20,54 @@ class ReviewSubscriber implements EventSubscriberInterface
 {
 	private $params;
 	private $em;
-	private $templating;
+	private $serializer;
 
-	public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, Environment $twig)
+	public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer)
     {
         $this->params = $params;
         $this->em = $em;
-        $this->templating = $twig;
+        $this->serializer = $serializer;
     }
 
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['template', EventPriorities::PRE_SERIALIZE],
+            KernelEvents::VIEW => ['totals', EventPriorities::PRE_SERIALIZE],
         ];
     }
 
-    public function template(GetResponseForControllerResultEvent $event)
+    public function totals(GetResponseForControllerResultEvent $event)
     {
     	$result = $event->getControllerResult();
     	$method = $event->getRequest()->getMethod();
     	$route = $event->getRequest()->attributes->get('_route');
     	    	
-    	var_dump($route);
-    	
-    	if ($route != 'api_templates_render_template_item' || $method != 'GET'){
+    	if ($route != 'api_reviews_item_total_collection' || $method != 'GET'){
     		return;
     	}
-    	
     	$request = New Request();
     	
     	/*@todo onderstaande verhaal moet uiteraard wel worden gedocumenteerd in redoc */
     	$organisation = $request->request->get('organization');
     	
     	
-    	return $result;
+    	// Let then create the responce
+    	$response = [];
+    	$response['organisation'] = $organisation;
+    	$response['rating'] = 3;
+    	$response['likes'] = 7500;
+    	
+    	$json = $this->serializer->serialize(
+    			$response,
+    			'jsonhal', ['enable_max_depth' => true]
+    			);
+    	
+    	$response = new Response(
+    			$json,
+    			Response::HTTP_OK,
+    			['content-type' => 'application/json+hal']
+    			);
+    	
+    	$event->setResponse($response);
     }
 }

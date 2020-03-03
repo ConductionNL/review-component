@@ -23,9 +23,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
  * )
+ * @ORM\Table(name="likes")
  * @ORM\Entity(repositoryClass="App\Repository\LikeRepository")
  * @ApiFilter(OrderFilter::class, properties={"id","organization","resource","author"})
- * @ApiFilter(SearchFilter::class, properties={"organization": "exact","resource: "exact","author":"exact"})
+ * @ApiFilter(SearchFilter::class, properties={"organization":"exact","resource": "exact","author":"exact"})
  * @ApiFilter(DateFilter::class, properties={"dateCreated","dateModified" })
  */
 class Like

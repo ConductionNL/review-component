@@ -1,20 +1,670 @@
 openapi: 3.0.2
 info:
-  title: 'Proto Applicatie'
+  title: 'Review Component'
   version: V.0.1
   description: |
     API Details
-    - Component: Proto Applicatie
-    - Reference: pa
+    - Component: Review Component
+    - Reference: rc
     - Enviroment: dev
     - Version: V.0.1
     - Repository: [online](https://github.com/ConductionNL/Proto-component-commonground) / [zip](https://github.com/ConductionNL/Proto-component-commonground/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/pa-php) 
-    - Datamodel: [postman](/schema/pa.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
+    - Datamodel: [postman](/schema/rc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
     
     'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
+  /aspects:
+    get:
+      tags:
+        - Aspect
+      operationId: getAspectCollection
+      summary: 'Retrieves the collection of Aspect resources.'
+      responses:
+        200:
+          description: 'Aspect collection response'
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aspect-read'
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Aspect:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aspect-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aspect-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aspect-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aspect-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aspect-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aspect-read'
+      parameters:
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Aspect
+      operationId: postAspectCollection
+      summary: 'Creates a Aspect resource.'
+      responses:
+        201:
+          description: 'Aspect resource created'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Aspect:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+          links:
+            GetAspectItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getAspectItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /aspects/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Aspect:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+        description: 'The new Aspect resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/aspects/{id}':
+    get:
+      tags:
+        - Aspect
+      operationId: getAspectItem
+      summary: 'Retrieves a Aspect resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Aspect resource response'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Aspect:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    delete:
+      tags:
+        - Aspect
+      operationId: deleteAspectItem
+      summary: 'Removes the Aspect resource.'
+      responses:
+        204:
+          description: 'Aspect resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+    put:
+      tags:
+        - Aspect
+      operationId: putAspectItem
+      summary: 'Replaces the Aspect resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Aspect resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Aspect:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Aspect:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+        description: 'The updated Aspect resource'
+    patch:
+      tags:
+        - Aspect
+      operationId: patchAspectItem
+      summary: 'Updates the Aspect resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Aspect resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Aspect:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Aspect:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          applications/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Aspect-write'
+        description: 'The updated Aspect resource'
   /example_entities:
     get:
       tags:
@@ -526,8 +1176,2326 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
+  '/item_total}':
+    get:
+      tags:
+        - Review
+      operationId: calculate_totalReviewItem
+      summary: 'Retrieves a Review resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Review resource response'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Review:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  /likes:
+    get:
+      tags:
+        - Like
+      operationId: getLikeCollection
+      summary: 'Retrieves the collection of Like resources.'
+      responses:
+        200:
+          description: 'Like collection response'
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like-read'
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Like:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organization]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[author]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: organization
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: resource
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'resource[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: author
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'author[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Like
+      operationId: postLikeCollection
+      summary: 'Creates a Like resource.'
+      responses:
+        201:
+          description: 'Like resource created'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Like:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+          links:
+            GetLikeItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getLikeItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /likes/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Like:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+        description: 'The new Like resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/likes/{id}':
+    get:
+      tags:
+        - Like
+      operationId: getLikeItem
+      summary: 'Retrieves a Like resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Like resource response'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Like:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    delete:
+      tags:
+        - Like
+      operationId: deleteLikeItem
+      summary: 'Removes the Like resource.'
+      responses:
+        204:
+          description: 'Like resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+    put:
+      tags:
+        - Like
+      operationId: putLikeItem
+      summary: 'Replaces the Like resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Like resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Like:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Like:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+        description: 'The updated Like resource'
+    patch:
+      tags:
+        - Like
+      operationId: patchLikeItem
+      summary: 'Updates the Like resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Like resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Like:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Like:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          applications/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Like-write'
+        description: 'The updated Like resource'
+  /ratings:
+    get:
+      tags:
+        - Rating
+      operationId: getRatingCollection
+      summary: 'Retrieves the collection of Rating resources.'
+      responses:
+        200:
+          description: 'Rating collection response'
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating-read'
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Rating:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: review.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'review.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Rating
+      operationId: postRatingCollection
+      summary: 'Creates a Rating resource.'
+      responses:
+        201:
+          description: 'Rating resource created'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rating:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+          links:
+            GetRatingItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getRatingItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /ratings/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Rating:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+        description: 'The new Rating resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/ratings/{id}':
+    get:
+      tags:
+        - Rating
+      operationId: getRatingItem
+      summary: 'Retrieves a Rating resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Rating resource response'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rating:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    delete:
+      tags:
+        - Rating
+      operationId: deleteRatingItem
+      summary: 'Removes the Rating resource.'
+      responses:
+        204:
+          description: 'Rating resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+    put:
+      tags:
+        - Rating
+      operationId: putRatingItem
+      summary: 'Replaces the Rating resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Rating resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rating:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Rating:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+        description: 'The updated Rating resource'
+    patch:
+      tags:
+        - Rating
+      operationId: patchRatingItem
+      summary: 'Updates the Rating resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Rating resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rating:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Rating:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          applications/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Rating-write'
+        description: 'The updated Rating resource'
+  /reviews:
+    get:
+      tags:
+        - Review
+      operationId: getReviewCollection
+      summary: 'Retrieves the collection of Review resources.'
+      responses:
+        200:
+          description: 'Review collection response'
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review-read'
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Review:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organization]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[author]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: organization
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: resource
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'resource[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: author
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'author[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Review
+      operationId: postReviewCollection
+      summary: 'Creates a Review resource.'
+      responses:
+        201:
+          description: 'Review resource created'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Review:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+          links:
+            GetReviewItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getReviewItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /reviews/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Review:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+        description: 'The new Review resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/reviews/{id}':
+    get:
+      tags:
+        - Review
+      operationId: getReviewItem
+      summary: 'Retrieves a Review resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Review resource response'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Review:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    put:
+      tags:
+        - Review
+      operationId: putReviewItem
+      summary: 'Replaces the Review resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Review resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Review:jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Review-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Review:jsonld-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Review-write'
+        description: 'The updated Review resource'
+    delete:
+      tags:
+        - Review
+      operationId: deleteReviewItem
+      summary: 'Removes the Review resource.'
+      responses:
+        204:
+          description: 'Review resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
 components:
   schemas:
+    Aspect-read:
+      type: object
+      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        itemType:
+          description: 'The type of item that this aspect belongs to, e.g a product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        item:
+          description: 'A specific that this aspect belongs to, e.g a single  product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        name:
+          description: 'The name of this review aspect'
+          type: string
+        description:
+          description: 'The description of this review aspect'
+          type: string
+        dateCreated:
+          readOnly: true
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+        dateModified:
+          readOnly: true
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+      required:
+        - organization
+        - name
+    Aspect-write:
+      type: object
+      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location'
+      required:
+        - organization
+        - name
+      properties:
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        itemType:
+          description: 'The type of item that this aspect belongs to, e.g a product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        item:
+          description: 'A specific that this aspect belongs to, e.g a single  product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        name:
+          description: 'The name of this review aspect'
+          type: string
+        description:
+          description: 'The description of this review aspect'
+          type: string
+    'Aspect:jsonld-read':
+      type: object
+      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        itemType:
+          description: 'The type of item that this aspect belongs to, e.g a product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        item:
+          description: 'A specific that this aspect belongs to, e.g a single  product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        name:
+          description: 'The name of this review aspect'
+          type: string
+        description:
+          description: 'The description of this review aspect'
+          type: string
+        dateCreated:
+          readOnly: true
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+        dateModified:
+          readOnly: true
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+      required:
+        - organization
+        - name
+    'Aspect:jsonld-write':
+      type: object
+      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location'
+      required:
+        - organization
+        - name
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        itemType:
+          description: 'The type of item that this aspect belongs to, e.g a product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        item:
+          description: 'A specific that this aspect belongs to, e.g a single  product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        name:
+          description: 'The name of this review aspect'
+          type: string
+        description:
+          description: 'The description of this review aspect'
+          type: string
     ExampleEntity-read:
       type: object
       description: 'This is an example entity.'
@@ -618,7 +3586,532 @@ components:
         camelCase:
           description: 'Proof that we camel case our api'
           type: string
+    Like-read:
+      type: object
+      description: 'The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being liked, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        author:
+          description: 'author A person or organisation from contacs component that posted this like (the desicion wheter or not this is gotten from an logedin user is up to bussness logic)'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        dateCreated:
+          readOnly: true
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+        dateModified:
+          readOnly: true
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+      required:
+        - organization
+        - resource
+        - author
+    Like-write:
+      type: object
+      description: 'The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.'
+      required:
+        - organization
+        - resource
+        - author
+      properties:
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being liked, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        author:
+          description: 'author A person or organisation from contacs component that posted this like (the desicion wheter or not this is gotten from an logedin user is up to bussness logic)'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+    'Like:jsonld-read':
+      type: object
+      description: 'The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being liked, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        author:
+          description: 'author A person or organisation from contacs component that posted this like (the desicion wheter or not this is gotten from an logedin user is up to bussness logic)'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        dateCreated:
+          readOnly: true
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+        dateModified:
+          readOnly: true
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+      required:
+        - organization
+        - resource
+        - author
+    'Like:jsonld-write':
+      type: object
+      description: 'The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.'
+      required:
+        - organization
+        - resource
+        - author
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being liked, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        author:
+          description: 'author A person or organisation from contacs component that posted this like (the desicion wheter or not this is gotten from an logedin user is up to bussness logic)'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+    Rating-read:
+      type: object
+      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        review:
+          $ref: '#/components/schemas/Review-read'
+        author:
+          readOnly: true
+          description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
+          type: string
+        bestRating:
+          readOnly: true
+          description: 'The best posbile rating that could be given'
+          type: integer
+        worstRating:
+          readOnly: true
+          description: 'The worst posbile rating that could be given'
+          type: integer
+        ratingValue:
+          description: 'an explanation for the given rating'
+          type: integer
+        ratingExplanation:
+          description: 'The rating given'
+          type: string
+        reviewAspect:
+          description: 'The aspect of the item that is rated'
+          $ref: '#/components/schemas/Aspect-read'
+        dateCreated:
+          readOnly: true
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+        dateModified:
+          readOnly: true
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+      required:
+        - review
+        - ratingValue
+    Rating-write:
+      type: object
+      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale'
+      required:
+        - review
+        - ratingValue
+      properties:
+        review:
+          $ref: '#/components/schemas/Review-write'
+        ratingValue:
+          description: 'an explanation for the given rating'
+          type: integer
+        ratingExplanation:
+          description: 'The rating given'
+          type: string
+        reviewAspect:
+          description: 'The aspect of the item that is rated'
+          $ref: '#/components/schemas/Aspect-write'
+    'Rating:jsonld-read':
+      type: object
+      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        review:
+          $ref: '#/components/schemas/Review:jsonld-read'
+        author:
+          readOnly: true
+          description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
+          type: string
+        bestRating:
+          readOnly: true
+          description: 'The best posbile rating that could be given'
+          type: integer
+        worstRating:
+          readOnly: true
+          description: 'The worst posbile rating that could be given'
+          type: integer
+        ratingValue:
+          description: 'an explanation for the given rating'
+          type: integer
+        ratingExplanation:
+          description: 'The rating given'
+          type: string
+        reviewAspect:
+          description: 'The aspect of the item that is rated'
+          $ref: '#/components/schemas/Aspect:jsonld-read'
+        dateCreated:
+          readOnly: true
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+        dateModified:
+          readOnly: true
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+      required:
+        - review
+        - ratingValue
+    'Rating:jsonld-write':
+      type: object
+      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale'
+      required:
+        - review
+        - ratingValue
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        review:
+          $ref: '#/components/schemas/Review:jsonld-write'
+        ratingValue:
+          description: 'an explanation for the given rating'
+          type: integer
+        ratingExplanation:
+          description: 'The rating given'
+          type: string
+        reviewAspect:
+          description: 'The aspect of the item that is rated'
+          $ref: '#/components/schemas/Aspect:jsonld-write'
+    Review-read:
+      type: object
+      description: 'A review of an item - for example, of a restaurant, movie, or store.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        author:
+          description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        ratings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rating-read'
+        aggregateRating:
+          readOnly: true
+          description: 'The overall rating, based on a collection of ratings, of this review rounded to a single decimal.'
+          type: number
+        dateCreated:
+          readOnly: true
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+        dateModified:
+          readOnly: true
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+      required:
+        - organization
+        - resource
+    Review-write:
+      type: object
+      description: 'A review of an item - for example, of a restaurant, movie, or store.'
+      required:
+        - organization
+        - resource
+      properties:
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        author:
+          description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        ratings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rating-write'
+    'Review:jsonld-read':
+      type: object
+      description: 'A review of an item - for example, of a restaurant, movie, or store.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        author:
+          description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        ratings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rating:jsonld-read'
+        aggregateRating:
+          readOnly: true
+          description: 'The overall rating, based on a collection of ratings, of this review rounded to a single decimal.'
+          type: number
+        dateCreated:
+          readOnly: true
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+        dateModified:
+          readOnly: true
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+      required:
+        - organization
+        - resource
+    'Review:jsonld-write':
+      type: object
+      description: 'A review of an item - for example, of a restaurant, movie, or store.'
+      required:
+        - organization
+        - resource
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        author:
+          description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        ratings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rating:jsonld-write'
 definitions:
+  Aspect-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: 9b9eea1a-ef04-427d-b8bd-7f5c24801874
+        format: uuid
+      organization:
+        description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      itemType:
+        description: 'The type of item that this aspect belongs to, e.g a product'
+        type: string
+        example: 'https://pdc.zaakonline.nl/products/'
+        format: url
+        maxLength: 255
+      item:
+        description: 'A specific that this aspect belongs to, e.g a single  product'
+        type: string
+        example: 'https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+        maxLength: 255
+      name:
+        description: 'The name of this review aspect'
+        type: string
+        example: colour
+        maxLength: 255
+      description:
+        description: 'The description of this review aspect'
+        type: string
+        example: 'was the colour of the product  what you expected it to be?'
+        maxLength: 2255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \Datetime
+    required:
+      - organization
+      - name
+  Aspect-write:
+    properties:
+      organization:
+        description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      itemType:
+        description: 'The type of item that this aspect belongs to, e.g a product'
+        type: string
+        example: 'https://pdc.zaakonline.nl/products/'
+        format: url
+        maxLength: 255
+      item:
+        description: 'A specific that this aspect belongs to, e.g a single  product'
+        type: string
+        example: 'https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+        maxLength: 255
+      name:
+        description: 'The name of this review aspect'
+        type: string
+        example: colour
+        maxLength: 255
+      description:
+        description: 'The description of this review aspect'
+        type: string
+        example: 'was the colour of the product  what you expected it to be?'
+        maxLength: 2255
+    required:
+      - organization
+      - name
   ExampleEntity-read:
     properties:
       id:
@@ -663,28 +4156,209 @@ definitions:
         maxLength: 255
     required:
       - name
+  Like-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: 9b9eea1a-ef04-427d-b8bd-7f5c24801874
+        format: uuid
+      organization:
+        description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource that is being liked, e.g a single product'
+        type: string
+        example: pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
+        format: url
+        maxLength: 255
+      author:
+        description: 'author A person or organisation from contacs component that posted this like (the desicion wheter or not this is gotten from an logedin user is up to bussness logic)'
+        type: string
+        example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
+        format: url
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \Datetime
+    required:
+      - organization
+      - resource
+      - author
+  Like-write:
+    properties:
+      organization:
+        description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource that is being liked, e.g a single product'
+        type: string
+        example: pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
+        format: url
+        maxLength: 255
+      author:
+        description: 'author A person or organisation from contacs component that posted this like (the desicion wheter or not this is gotten from an logedin user is up to bussness logic)'
+        type: string
+        example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
+        format: url
+        maxLength: 255
+    required:
+      - organization
+      - resource
+      - author
+  Rating-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: 9b9eea1a-ef04-427d-b8bd-7f5c24801874
+        format: uuid
+      ratingValue:
+        description: 'an explanation for the given rating'
+        type: int
+        example: '5'
+        maxLength: 2
+      ratingExplanation:
+        description: 'The rating given'
+        type: string
+        example: 'I really like the color!'
+        maxLength: 2255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \Datetime
+      review: []
+      reviewAspect: []
+    required:
+      - ratingValue
+      - review
+  Rating-write:
+    properties:
+      ratingValue:
+        description: 'an explanation for the given rating'
+        type: int
+        example: '5'
+        maxLength: 2
+      ratingExplanation:
+        description: 'The rating given'
+        type: string
+        example: 'I really like the color!'
+        maxLength: 2255
+      review: []
+      reviewAspect: []
+    required:
+      - ratingValue
+      - review
+  Review-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: 9b9eea1a-ef04-427d-b8bd-7f5c24801874
+        format: uuid
+      organization:
+        description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource that is being reviewd, e.g a single product'
+        type: string
+        example: 'https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      author:
+        description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
+        type: string
+        example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
+        format: url
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \Datetime
+      ratings: []
+    required:
+      - organization
+      - resource
+  Review-write:
+    properties:
+      organization:
+        description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource that is being reviewd, e.g a single product'
+        type: string
+        example: 'https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      author:
+        description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
+        type: string
+        example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
+        format: url
+        maxLength: 255
+      ratings: []
+    required:
+      - organization
+      - resource
 tags:
+  -
+    name: Aspect
+    description: |
+      A aspect that can be rated, e.g. the color of a product or appearence of a location
+      
+      
   -
     name: ExampleEntity
     description: |
       This is an example entity.
       
       With an adtional description, all in all its pritty nice [url](www.google.nl)
+  -
+    name: Like
+    description: |
+      The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
+      
+      
+  -
+    name: Rating
+    description: |
+      A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale
+      
+      
+  -
+    name: Review
+    description: |
+      A review of an item - for example, of a restaurant, movie, or store.
+      
+      
 securityDefinitions:
   JWT-Oauth:
     type: oauth2
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ExampleEntity resource'
-      write: 'write right to the ExampleEntity resource'
+      read: 'read right to the Review resource'
+      write: 'write right to the Review resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ExampleEntity resource'
-      write: 'write right to the ExampleEntity resource'
+      read: 'read right to the Review resource'
+      write: 'write right to the Review resource'
 host: irc.zaakonline.nl
 servers:
   -
