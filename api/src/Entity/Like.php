@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,15 +17,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * The act of expressing a positive sentiment about the object. An agent likes an object (a proposition, topic or theme) with participants.
+ * The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
  *
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\LikeRepository")
- * @ApiFilter(OrderFilter::class, properties={"id","organization","itemReviewed","reviewer","aggregateRating"})
- * @ApiFilter(SearchFilter::class, properties={"organization": "exact","review.id": "exact","reviewer": "exact"})
+ * @ApiFilter(OrderFilter::class, properties={"id","organization","resource","author"})
+ * @ApiFilter(SearchFilter::class, properties={"organization": "exact","resource: "exact","author":"exact"})
+ * @ApiFilter(DateFilter::class, properties={"dateCreated","dateModified" })
  */
 class Like
 {
@@ -43,22 +45,18 @@ class Like
 	private $id;
 	
 	/**
-	 * @var string The RSIN of the organization that ownes this item reviewd
-	 *
-	 * @example 002851234
+	 * @var string $itemReviewed A specific commonground organisation that is being reviewd, e.g a single product
+	 * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
 	 *
 	 * @Assert\NotNull
-	 * @Assert\Length(
-	 *     max = 255
-	 * )
+	 * @Assert\Url
 	 * @Groups({"read", "write"})
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $organization;
-	
-	
+		
 	/**
-	 * @var string $object A specific commonground resource that is being liked, e.g a single product
+	 * @var string $resource A specific commonground resource that is being liked, e.g a single product
 	 * @example pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
 	 *
 	 * @Assert\NotNull
@@ -69,10 +67,10 @@ class Like
 	 * @Groups({"read", "write"})
 	 * @ORM\Column(type="string", length=255,)
 	 */
-	private $object;
+	private $resource;
 	
 	/**
-	 * @var string agent A person or organisation from contacs component that posted this like (the desicion wheter or not this is gotten from an logedin user is up to bussness logic)
+	 * @var string author A person or organisation from contacs component that posted this like (the desicion wheter or not this is gotten from an logedin user is up to bussness logic)
 	 * @example https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6
 	 *
 	 * @Assert\NotNull
@@ -83,32 +81,30 @@ class Like
 	 * @Groups({"read", "write"})
 	 * @ORM\Column(type="string", length=255)
 	 */
-	private $agent;
-
-    
-    /**
-     * @var Datetime The moment this component was found by the crawler
-     *
-     * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $createdAt;
-    
-    /**
-     * @var Datetime The last time this component was changed
-     *
-     * @Groups({"read"})
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updatedAt;
+	private $author;
+	
+	/**
+	 * @var Datetime $dateCreated The moment this request was created
+	 *
+	 * @Groups({"read"})
+	 * @Gedmo\Timestampable(on="create")
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	private $dateCreated;
+	
+	/**
+	 * @var Datetime $dateModified  The moment this request last Modified
+	 *
+	 * @Groups({"read"})
+	 * @Gedmo\Timestampable(on="create")
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	private $dateModified;
 
     public function getId()
     {
         return $this->id;
     }
-
     
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -127,45 +123,49 @@ class Like
     	return $this;
     }
     
-    public function getObject(): ?string
+    public function getResource(): ?string
     {
-    	return $this->object;
+    	return $this->resource;
     }
     
-    public function setObject(string $object): self
+    public function setResource(string $resource): self
     {
-    	$this->object = $object;
+    	$this->resource = $resource;
     	
     	return $this;
     }
     
-    public function getAgent(): ?string
+    public function getAuthor(): ?string
     {
-    	return $this->agent;
+    	return $this->author;
     }
     
-    public function setAgent(string $agent): self
+    public function setAuthor(string $author): self
     {
-    	$this->agent = $agent;
+    	$this->author = $author;
+    	
+    	return $this;
+    }
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+    	return $this->dateCreated;
+    }
+    
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
+    {
+    	$this->dateCreated= $dateCreated;
     	
     	return $this;
     }
     
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function getDateModified(): ?\DateTimeInterface
     {
-    	$this->createdAt = $createdAt;
-    	
-    	return $this;
+    	return $this->dateModified;
     }
     
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	return $this->updatedAt;
-    }
-    
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-    	$this->updatedAt = $updatedAt;
+    	$this->dateModified = $dateModified;
     	
     	return $this;
     }

@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,13 +19,23 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * A review of an item - for example, of a restaurant, movie, or store.
  *
- * @ApiResource(
+ * @ApiResource(itemOperations={
+ * 		"get",
+ * 	    "put",
+ * 	    "delete",
+ *      "calculate_total"={
+ *         "method"="GET",
+ *         "path"="/item_total}",
+ *         "controller"=DefaultController::class,
+ *     		}
+ * 		},
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
- * @ApiFilter(OrderFilter::class, properties={"id","organization","itemReviewed","reviewer","aggregateRating"})
- * @ApiFilter(SearchFilter::class, properties={"organization": "exact","itemReviewed": "exact","reviewer": "exact"})
+ * @ApiFilter(OrderFilter::class, properties={"id","organization","resource","author","aggregateRating"})
+ * @ApiFilter(SearchFilter::class, properties={"organization": "exact","resource": "exact","author": "exact"})
+ * @ApiFilter(DateFilter::class, properties={"dateCreated","dateModified" })
  */
 class Review
 {
@@ -43,14 +54,11 @@ class Review
 	private $id;
 
 	/**
-	 * @var string The RSIN of the organization that ownes this item reviewd
-	 *
-	 * @example 002851234
+	 * @var string $resource A specific commonground organisation that is being reviewd, e.g a single product
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
 	 *
 	 * @Assert\NotNull
-	 * @Assert\Length(
-	 *     max = 255
-	 * )
+	 * @Assert\Url
 	 * @Groups({"read", "write"})
 	 * @ORM\Column(type="string", length=255)
 	 */
@@ -58,17 +66,15 @@ class Review
 
 
     /**
-     * @var string $itemReviewed A specific commonground resource that is being reviewd, e.g a single product
+     * @var string $resource A specific commonground resource that is being reviewd, e.g a single product
      * @example https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
      *
+	 * @Assert\NotNull
      * @Assert\Url
-     * @Assert\Length(
-     *      max = 255
-     * )
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $itemReviewed;
+    private $resource;
 
     /**
      * @var string $author A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review
@@ -97,24 +103,24 @@ class Review
      * @Groups({"read"})
      */
     private $aggregateRating;
-
+    
     /**
-     * @var DateTime The moment this component was found by the crawler
+     * @var Datetime $dateCreated The moment this request was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $createdAt;
-
+    private $dateCreated;
+    
     /**
-     * @var DateTime The last time this component was changed
+     * @var Datetime $dateModified  The moment this request last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="update")
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updatedAt;
+    private $dateModified;
 
     public function __construct()
     {
@@ -138,14 +144,14 @@ class Review
         return $this;
     }
 
-    public function getItemReviewed(): ?string
+    public function getResource(): ?string
     {
-        return $this->itemReviewed;
+        return $this->resource;
     }
 
-    public function setItemReviewed(string $itemReviewed): self
+    public function setResource(string $resource): self
     {
-        $this->itemReviewed = $itemReviewed;
+        $this->resource = $resource;
 
         return $this;
     }
@@ -210,28 +216,28 @@ class Review
     	// Round to one decimal (round down making 1.55 into 1 . 1.5)
     	return round($aggregate, 1, PHP_ROUND_HALF_DOWN);
     }
-
-    public function getCreatedAt(): ?\DateTimeInterface
+    
+    public function getDateCreated(): ?\DateTimeInterface
     {
-    	return $this->createdAt;
+    	return $this->dateCreated;
     }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
-    	$this->createdAt = $createdAt;
-
+    	$this->dateCreated= $dateCreated;
+    	
     	return $this;
     }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
+    
+    public function getDateModified(): ?\DateTimeInterface
     {
-    	return $this->updatedAt;
+    	return $this->dateModified;
     }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    
+    public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	$this->updatedAt = $updatedAt;
-
+    	$this->dateModified = $dateModified;
+    	
     	return $this;
     }
 }

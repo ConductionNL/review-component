@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,6 +26,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="App\Repository\RatingRepository")
  * @ApiFilter(OrderFilter::class, properties={"id","organization","itemReviewed","reviewer","aggregateRating"})
  * @ApiFilter(SearchFilter::class, properties={"organization": "exact","review.id": "exact","reviewer": "exact"})
+ * @ApiFilter(DateFilter::class, properties={"dateCreated","dateModified" })
  */
 class Rating
 {
@@ -114,24 +116,24 @@ class Rating
      * @ORM\JoinColumn(nullable=true)
      */
     private $reviewAspect;
-
+    
     /**
-     * @var Datetime The moment this component was found by the crawler
+     * @var Datetime $dateCreated The moment this request was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $createdAt;
-
+    private $dateCreated;
+    
     /**
-     * @var Datetime The last time this component was changed
+     * @var Datetime $dateModified  The moment this request last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="update")
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updatedAt;
+    private $dateModified;
 
     public function getId()
     {
@@ -200,28 +202,28 @@ class Rating
 
         return $this;
     }
-
-    public function getCreatedAt(): ?\DateTimeInterface
+    
+    public function getDateCreated(): ?\DateTimeInterface
     {
-    	return $this->createdAt;
+    	return $this->dateCreated;
     }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
-    	$this->createdAt = $createdAt;
-
+    	$this->dateCreated= $dateCreated;
+    	
     	return $this;
     }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
+    
+    public function getDateModified(): ?\DateTimeInterface
     {
-    	return $this->updatedAt;
+    	return $this->dateModified;
     }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    
+    public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	$this->updatedAt = $updatedAt;
-
+    	$this->dateModified = $dateModified;
+    	
     	return $this;
     }
 }

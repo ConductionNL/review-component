@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,6 +24,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\AspectRepository")
+ * @ApiFilter(DateFilter::class, properties={"dateCreated","dateModified" })
  */
 class Aspect
 {
@@ -39,16 +41,13 @@ class Aspect
 	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
 	 */
 	private $id;
-
+	
 	/**
-	 * @var string The RSIN of the organization that ownes this item reviewd
-	 *
-	 * @example 002851234
+	 * @var string $itemReviewed A specific commonground organisation that is being reviewd, e.g a single product
+	 * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
 	 *
 	 * @Assert\NotNull
-	 * @Assert\Length(
-	 *     max = 255
-	 * )
+	 * @Assert\Url
 	 * @Groups({"read", "write"})
 	 * @ORM\Column(type="string", length=255)
 	 */
@@ -126,24 +125,24 @@ class Aspect
      * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="reviewAspect", orphanRemoval=true)
      */
     private $ratings;
-
+    
     /**
-     * @var Datetime The moment this component was found by the crawler
+     * @var Datetime $dateCreated The moment this request was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $createdAt;
-
+    private $dateCreated;
+    
     /**
-     * @var Datetime The last time this component was changed
+     * @var Datetime $dateModified  The moment this request last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="update")
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updatedAt;
+    private $dateModified;
 
     public function __construct()
     {
@@ -269,28 +268,28 @@ class Aspect
 
         return $this;
     }
-
-    public function getCreatedAt(): ?\DateTimeInterface
+    
+    public function getDateCreated(): ?\DateTimeInterface
     {
-    	return $this->createdAt;
+    	return $this->dateCreated;
     }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
-    	$this->createdAt = $createdAt;
-
+    	$this->dateCreated= $dateCreated;
+    	
     	return $this;
     }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
+    
+    public function getDateModified(): ?\DateTimeInterface
     {
-    	return $this->updatedAt;
+    	return $this->dateModified;
     }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    
+    public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	$this->updatedAt = $updatedAt;
-
+    	$this->dateModified = $dateModified;
+    	
     	return $this;
     }
 }
