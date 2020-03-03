@@ -1,13 +1,13 @@
 publiccodeYmlVersion: "0.2"
 
-name: rc
+name: pa
 applicationSuite: commonground
 url: "https://github.com/ConductionNL/Proto-component-commonground"
-landingURL: "rc.zaakonline.nl" 
+landingURL: "test.conduction.nl" 
 isBasedOn: "https://github.com/ConductionNL/Proto-component-commonground.git" 
 softwareVersion: "V.0.1"
-releaseDate: "2020-23-01"
-logo: rc.zaakonline.nl 
+releaseDate: "2020-02-03"
+logo: pc.zaakonline.nl 
 monochromeLogo: img/logo-mono.svg
 
 inputTypes:
@@ -67,7 +67,7 @@ description:
 #          is and why one should need it.
 
     documentation: "https://github.com/ConductionNL/Proto-component-commonground/blob/master/README.md"
-    apiDocumentation: "rc.zaakonline.nl"
+    apiDocumentation: "test.conduction.nl"
 #
 #    features:
 #       - Very important feature
