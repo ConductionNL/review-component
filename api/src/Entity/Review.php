@@ -19,14 +19,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * A review of an item - for example, of a restaurant, movie, or store.
  *
- * @ApiResource(itemOperations={
+ * @ApiResource(collectionOperations={
  * 		"get",
- * 	    "put",
- * 	    "delete",
- *      "calculate_total"={
+ * 	    "post",
+ *      "item_total"={
  *         "method"="GET",
- *         "path"="/item_total}",
- *         "controller"=DefaultController::class,
+ *         "path"="/item_total",
+ *              "swagger_context" = {
+ *                  "summary"="Gets organization review totals",
+ *                  "description"="More text here"
+ *              }
  *     		}
  * 		},
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
