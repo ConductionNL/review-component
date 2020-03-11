@@ -3434,7 +3434,7 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
-  '/example_entities/{id}/audit_trial':
+  '/example_entities/{id}/audit_trail':
     get:
       tags:
         - ExampleEntity
