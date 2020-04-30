@@ -47,7 +47,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\AspectRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
  * @ApiFilter(SearchFilter::class)
@@ -67,7 +67,7 @@ class Aspect
 	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
 	 */
 	private $id;
-	
+
 	/**
 	 * @var string $itemReviewed A specific commonground organisation that is being reviewd, e.g a single product
 	 * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
@@ -151,7 +151,7 @@ class Aspect
      * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="reviewAspect", orphanRemoval=true)
      */
     private $ratings;
-    
+
     /**
      * @var Datetime $dateCreated The moment this request was created
      *
@@ -160,12 +160,12 @@ class Aspect
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
      * @var Datetime $dateModified  The moment this request last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
@@ -294,28 +294,28 @@ class Aspect
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }
