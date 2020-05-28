@@ -2,23 +2,22 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * A aspect that can be rated, e.g. the color of a product or appearence of a location
+ * A aspect that can be rated, e.g. the color of a product or appearence of a location.
  *
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
@@ -54,33 +53,35 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Aspect
 {
-	/**
-	 * @var UuidInterface The UUID identifier of this resource
-	 *
-	 * @example e2984465-190a-4562-829e-a8cca81aa35d
-	 *
-	 * @Assert\Uuid
-	 * @Groups({"read"})
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
-	private $id;
-
-	/**
-	 * @var string $itemReviewed A specific commonground organisation that is being reviewd, e.g a single product
-	 * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
-	 *
-	 * @Assert\NotNull
-	 * @Assert\Url
-	 * @Groups({"read", "write"})
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $organization;
+    /**
+     * @var UuidInterface The UUID identifier of this resource
+     *
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Assert\Uuid
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
+    private $id;
 
     /**
-     * @var string $itemType The type of item that this aspect belongs to, e.g a product
+     * @var string A specific commonground organisation that is being reviewd, e.g a single product
+     *
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Assert\NotNull
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $organization;
+
+    /**
+     * @var string The type of item that this aspect belongs to, e.g a product
+     *
      * @example https://pdc.zaakonline.nl/products/
      *
      * @Assert\Url
@@ -93,7 +94,8 @@ class Aspect
     private $itemType;
 
     /**
-     * @var string $item A specific that this aspect belongs to, e.g a single  product
+     * @var string A specific that this aspect belongs to, e.g a single  product
+     *
      * @example https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f
      *
      * @Assert\Url
@@ -106,7 +108,8 @@ class Aspect
     private $item;
 
     /**
-     * @var integer The best posbile rating that could be given for this aspect
+     * @var int The best posbile rating that could be given for this aspect
+     *
      * @example 10
      *
      * @ORM\Column(type="integer")
@@ -114,7 +117,8 @@ class Aspect
     private $bestRating = 10;
 
     /**
-     * @var integer The worst posbile rating that could be given this aspect
+     * @var int The worst posbile rating that could be given this aspect
+     *
      * @example 1
      *
      * @ORM\Column(type="integer")
@@ -122,10 +126,11 @@ class Aspect
     private $worstRating = 1;
 
     /**
-     * @var string $name The name of this review aspect
+     * @var string The name of this review aspect
+     *
      * @example colour
      *
-	 * @Assert\NotNull
+     * @Assert\NotNull
      * @Assert\Length(
      *      max = 255
      * )
@@ -135,7 +140,8 @@ class Aspect
     private $name;
 
     /**
-     * @var string $description The description of this review aspect
+     * @var string The description of this review aspect
+     *
      * @example was the colour of the product  what you expected it to be?
      *
      * @Assert\Length(
@@ -153,7 +159,7 @@ class Aspect
     private $ratings;
 
     /**
-     * @var Datetime $dateCreated The moment this request was created
+     * @var Datetime The moment this request was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
@@ -162,7 +168,7 @@ class Aspect
     private $dateCreated;
 
     /**
-     * @var Datetime $dateModified  The moment this request last Modified
+     * @var Datetime The moment this request last Modified
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
@@ -194,50 +200,50 @@ class Aspect
 
     public function getItemType(): ?string
     {
-    	return $this->itemType;
+        return $this->itemType;
     }
 
     public function setItemType(string $itemType): self
     {
-    	$this->itemType= $itemType;
+        $this->itemType = $itemType;
 
         return $this;
     }
 
     public function getItem(): ?string
     {
-    	return $this->item;
+        return $this->item;
     }
 
     public function setItem(string $item): self
     {
-    	$this->item= $item;
+        $this->item = $item;
 
-    	return $this;
+        return $this;
     }
 
     public function getBestRating(): ?int
     {
-    	return $this->bestRating;
+        return $this->bestRating;
     }
 
     public function setBestRating(int $bestRating): self
     {
-    	$this->bestRating = $bestRating;
+        $this->bestRating = $bestRating;
 
-    	return $this;
+        return $this;
     }
 
     public function getWorstRating(): ?int
     {
-    	return $this->worstRating;
+        return $this->worstRating;
     }
 
     public function setWorstRating(int $worstRating): self
     {
-    	$this->worstRating = $worstRating;
+        $this->worstRating = $worstRating;
 
-    	return $this;
+        return $this;
     }
 
     public function getName(): ?string
@@ -297,25 +303,25 @@ class Aspect
 
     public function getDateCreated(): ?\DateTimeInterface
     {
-    	return $this->dateCreated;
+        return $this->dateCreated;
     }
 
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
-    	$this->dateCreated= $dateCreated;
+        $this->dateCreated = $dateCreated;
 
-    	return $this;
+        return $this;
     }
 
     public function getDateModified(): ?\DateTimeInterface
     {
-    	return $this->dateModified;
+        return $this->dateModified;
     }
 
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	$this->dateModified = $dateModified;
+        $this->dateModified = $dateModified;
 
-    	return $this;
+        return $this;
     }
 }

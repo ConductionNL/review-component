@@ -2,23 +2,20 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale
+ * A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.
  *
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
@@ -54,22 +51,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Rating
 {
-	/**
-	 * @var UuidInterface The UUID identifier of this resource
-	 *
-	 * @example e2984465-190a-4562-829e-a8cca81aa35d
-	 *
-	 * @Assert\Uuid
-	 * @Groups({"read"})
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
-	private $id;
+    /**
+     * @var UuidInterface The UUID identifier of this resource
+     *
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Assert\Uuid
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
+    private $id;
 
     /**
-     *
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @MaxDepth(1)
@@ -79,7 +75,7 @@ class Rating
     private $review;
 
     /**
-     * @var string $author A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review
+     * @var string A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review
      *
      * @example https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6
      *
@@ -88,7 +84,7 @@ class Rating
     private $author;
 
     /**
-     * @var integer The best posbile rating that could be given
+     * @var int The best posbile rating that could be given
      *
      * @example 10
      *
@@ -97,7 +93,7 @@ class Rating
     private $bestRating;
 
     /**
-     * @var integer The worst posbile rating that could be given
+     * @var int The worst posbile rating that could be given
      *
      * @example 1
      *
@@ -106,10 +102,11 @@ class Rating
     private $worstRating;
 
     /**
-     * @var integer an explanation for the given rating
+     * @var int an explanation for the given rating
+     *
      * @example 5
      *
-	 * @Assert\NotNull
+     * @Assert\NotNull
      * @Assert\Length(
      *      max = 2
      * )
@@ -121,6 +118,7 @@ class Rating
 
     /**
      * @var string The rating given
+     *
      * @example I really like the color!
      *
      * @Assert\Length(
@@ -132,7 +130,7 @@ class Rating
     private $ratingExplanation;
 
     /**
-     * The aspect of the item that is rated
+     * The aspect of the item that is rated.
      *
      * @MaxDepth(1)
      * @Groups({"read", "write"})
@@ -142,7 +140,7 @@ class Rating
     private $reviewAspect;
 
     /**
-     * @var Datetime $dateCreated The moment this request was created
+     * @var Datetime The moment this request was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
@@ -151,7 +149,7 @@ class Rating
     private $dateCreated;
 
     /**
-     * @var Datetime $dateModified  The moment this request last Modified
+     * @var Datetime The moment this request last Modified
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
@@ -183,12 +181,12 @@ class Rating
 
     public function getBestRating(): ?int
     {
-    	return $this->reviewAspect->getBestRating();
+        return $this->reviewAspect->getBestRating();
     }
 
     public function getWorstRating(): ?int
     {
-    	return $this->reviewAspect->getWorstRating();
+        return $this->reviewAspect->getWorstRating();
     }
 
     public function getRatingValue(): ?int
@@ -229,25 +227,25 @@ class Rating
 
     public function getDateCreated(): ?\DateTimeInterface
     {
-    	return $this->dateCreated;
+        return $this->dateCreated;
     }
 
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
-    	$this->dateCreated= $dateCreated;
+        $this->dateCreated = $dateCreated;
 
-    	return $this;
+        return $this;
     }
 
     public function getDateModified(): ?\DateTimeInterface
     {
-    	return $this->dateModified;
+        return $this->dateModified;
     }
 
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	$this->dateModified = $dateModified;
+        $this->dateModified = $dateModified;
 
-    	return $this;
+        return $this;
     }
 }
