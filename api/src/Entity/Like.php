@@ -43,7 +43,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Table(name="likes")
  * @ORM\Entity(repositoryClass="App\Repository\LikeRepository")
- * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
+ * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
