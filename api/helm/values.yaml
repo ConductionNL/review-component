@@ -10,16 +10,12 @@ settings:
   version: V.0.1
   id: 
   description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
+  type: 
   repro: https://github.com/ConductionNL/review-component
   demo: rc.zaakonline.nl
   container: https://hub.docker.com/repository/docker/conduction/rc-php
-  subdomain: rc  
-  domains:
-    - conduction.nl
-    - zaakonline.nl
-    - huwelijksplanner.online
-    - common-ground.dev
-  domainsJson: ["conduction.nl","zaakonline.nl","huwelijksplanner.online","common-ground.dev"]
+  domain: 
+  subdomain: rc
   organisationName: Conduction
   email: info@conduction.nl
   country: Netherlands

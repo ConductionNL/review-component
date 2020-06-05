@@ -10,7 +10,7 @@ info:
     - Version: V.0.1
     - Repository: [online](https://github.com/ConductionNL/review-component) / [zip](https://github.com/ConductionNL/review-component/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/rc-php) 
-    - Datamodel: [postman](/schema/rc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
+    - Datamodel: [postman](/schema/rc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
     'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
@@ -909,6 +909,268 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
+  '/aspects/{id}/audit_trail':
+    get:
+      tags:
+        - Aspect
+      operationId: get_audit_trailAspectItem
+      summary: 'Retrieves a Aspect resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Aspect resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Aspect:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Aspect:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/aspects/{id}/change_log':
+    get:
+      tags:
+        - Aspect
+      operationId: get_change_logsAspectItem
+      summary: 'Retrieves a Aspect resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Aspect resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Aspect:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Aspect:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Aspect-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
   /audit_trails:
     get:
       tags:
@@ -2818,884 +3080,6 @@ paths:
             schema:
               $ref: '#/components/schemas/ChangeLog-write'
         description: 'The updated ChangeLog resource'
-  /example_entities:
-    get:
-      tags:
-        - ExampleEntity
-      operationId: getExampleEntityCollection
-      summary: 'Retrieves the collection of ExampleEntity resources.'
-      responses:
-        200:
-          description: 'ExampleEntity collection response'
-          content:
-            application/ld+json:
-              schema:
-                type: object
-                properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/ExampleEntity:jsonld-read' } }
-                  'hydra:totalItems': { type: integer, minimum: 0 }
-                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
-                required:
-                  - 'hydra:member'
-            application/json+ld:
-              schema:
-                type: object
-                properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/ExampleEntity:jsonld-read' } }
-                  'hydra:totalItems': { type: integer, minimum: 0 }
-                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
-                required:
-                  - 'hydra:member'
-            application/hal+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+hal:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            application/vnd.api+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+vnd.api:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            application/health+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+health:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            application/x-yaml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            text/csv:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-            text/html:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
-      parameters:
-        -
-          name: like_name
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: like_description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: page
-          in: query
-          required: false
-          description: 'The collection page number'
-          schema:
-            type: integer
-            default: 1
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
-        -
-          name: Link
-          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
-          in: header
-        -
-          name: 'extend[]'
-          required: false
-          description: 'An array of nested objects to include in the return object'
-          in: query
-          schema:
-            type: array
-        -
-          name: 'fields[]'
-          required: false
-          description: 'An array of fields to return in output, wil return all fields is not supplied'
-          in: query
-          schema:
-            type: array
-        -
-          name: validOn
-          required: false
-          description: 'Returns object as valid on a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validFrom
-          required: false
-          description: 'Returns objects valid from a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validUntil
-          required: false
-          description: 'Returns objects valid until a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-      produces:
-        - application/health+json
-    post:
-      tags:
-        - ExampleEntity
-      operationId: postExampleEntityCollection
-      summary: 'Creates a ExampleEntity resource.'
-      responses:
-        201:
-          description: 'ExampleEntity resource created'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/json+ld:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+hal:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/vnd.api+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+vnd.api:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/health+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+health:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-          links:
-            GetExampleEntityItem:
-              parameters:
-                id: '$response.body#/id'
-              operationId: getExampleEntityItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /example_entities/{id}`.'
-        400:
-          description: 'Invalid input'
-        404:
-          description: 'Resource not found'
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity:jsonld-write'
-          application/json+ld:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity:jsonld-write'
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/json+hal:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/json+vnd.api:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/health+json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/json+health:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          text/html:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-        description: 'The new ExampleEntity resource'
-      parameters:
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
-  '/example_entities/{id}':
-    get:
-      tags:
-        - ExampleEntity
-      operationId: getExampleEntityItem
-      summary: 'Retrieves a ExampleEntity resource.'
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
-        -
-          name: Link
-          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
-          in: header
-        -
-          name: 'extend[]'
-          required: false
-          description: 'An array of nested objects to include in the return object'
-          in: query
-          schema:
-            type: array
-        -
-          name: 'fields[]'
-          required: false
-          description: 'An array of fields to return in output, wil return all fields is not supplied'
-          in: query
-          schema:
-            type: array
-        -
-          name: validOn
-          required: false
-          description: 'Returns object as valid on a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validFrom
-          required: false
-          description: 'Returns objects valid from a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validUntil
-          required: false
-          description: 'Returns objects valid until a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-      responses:
-        200:
-          description: 'ExampleEntity resource response'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/json+ld:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+hal:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/vnd.api+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+vnd.api:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/health+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+health:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-        404:
-          description: 'Resource not found'
-      produces:
-        - application/health+json
-    put:
-      tags:
-        - ExampleEntity
-      operationId: putExampleEntityItem
-      summary: 'Replaces the ExampleEntity resource.'
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
-      responses:
-        200:
-          description: 'ExampleEntity resource updated'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/json+ld:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+hal:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/vnd.api+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+vnd.api:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/health+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+health:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-        400:
-          description: 'Invalid input'
-        404:
-          description: 'Resource not found'
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity:jsonld-write'
-          application/json+ld:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity:jsonld-write'
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/json+hal:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/json+vnd.api:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/health+json:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/json+health:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-          text/html:
-            schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-        description: 'The updated ExampleEntity resource'
-    delete:
-      tags:
-        - ExampleEntity
-      operationId: deleteExampleEntityItem
-      summary: 'Removes the ExampleEntity resource.'
-      responses:
-        204:
-          description: 'ExampleEntity resource deleted'
-        404:
-          description: 'Resource not found'
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
-  '/example_entities/{id}/audit_trail':
-    get:
-      tags:
-        - ExampleEntity
-      operationId: get_audit_trailExampleEntityItem
-      summary: 'Retrieves a ExampleEntity resource.'
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
-        -
-          name: Link
-          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
-          in: header
-        -
-          name: 'extend[]'
-          required: false
-          description: 'An array of nested objects to include in the return object'
-          in: query
-          schema:
-            type: array
-        -
-          name: 'fields[]'
-          required: false
-          description: 'An array of fields to return in output, wil return all fields is not supplied'
-          in: query
-          schema:
-            type: array
-        -
-          name: validOn
-          required: false
-          description: 'Returns object as valid on a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validFrom
-          required: false
-          description: 'Returns objects valid from a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validUntil
-          required: false
-          description: 'Returns objects valid until a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-      responses:
-        200:
-          description: 'ExampleEntity resource response'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/json+ld:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+hal:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/vnd.api+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+vnd.api:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/health+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+health:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-        404:
-          description: 'Resource not found'
-      produces:
-        - application/health+json
-  '/example_entities/{id}/change_log':
-    get:
-      tags:
-        - ExampleEntity
-      operationId: get_change_logsExampleEntityItem
-      summary: 'Retrieves a ExampleEntity resource.'
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
-        -
-          name: Link
-          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
-          in: header
-        -
-          name: 'extend[]'
-          required: false
-          description: 'An array of nested objects to include in the return object'
-          in: query
-          schema:
-            type: array
-        -
-          name: 'fields[]'
-          required: false
-          description: 'An array of fields to return in output, wil return all fields is not supplied'
-          in: query
-          schema:
-            type: array
-        -
-          name: validOn
-          required: false
-          description: 'Returns object as valid on a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validFrom
-          required: false
-          description: 'Returns objects valid from a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validUntil
-          required: false
-          description: 'Returns objects valid until a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-      responses:
-        200:
-          description: 'ExampleEntity resource response'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/json+ld:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity:jsonld-read'
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+hal:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/vnd.api+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+vnd.api:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/health+json:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/json+health:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
-        404:
-          description: 'Resource not found'
-      produces:
-        - application/health+json
   /item_total:
     get:
       tags:
@@ -5616,6 +5000,268 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
+  '/ratings/{id}/audit_trail':
+    get:
+      tags:
+        - Rating
+      operationId: get_audit_trailRatingItem
+      summary: 'Retrieves a Rating resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Rating resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rating:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Rating:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/ratings/{id}/change_log':
+    get:
+      tags:
+        - Rating
+      operationId: get_change_logsRatingItem
+      summary: 'Retrieves a Rating resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Rating resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rating:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Rating:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rating-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
   /reviews:
     get:
       tags:
@@ -6410,7 +6056,7 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
-  '/stages/{id}/audit_trail':
+  '/reviews/{id}/audit_trail':
     get:
       tags:
         - Review
@@ -6541,7 +6187,7 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
-  '/stages/{id}/change_log':
+  '/reviews/{id}/change_log':
     get:
       tags:
         - Review
@@ -6672,11 +6318,273 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
+  '/stages/{id}/audit_trail':
+    get:
+      tags:
+        - Like
+      operationId: get_audit_trailLikeItem
+      summary: 'Retrieves a Like resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Like resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Like:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Like:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/stages/{id}/change_log':
+    get:
+      tags:
+        - Like
+      operationId: get_change_logsLikeItem
+      summary: 'Retrieves a Like resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Like resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Like:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Like:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Like-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
 components:
   schemas:
     Aspect-read:
       type: object
-      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location'
+      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location.'
       properties:
         id:
           readOnly: true
@@ -6684,6 +6592,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -6694,33 +6603,36 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         item:
           description: 'A specific that this aspect belongs to, e.g a single  product'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         name:
           description: 'The name of this review aspect'
           type: string
         description:
           description: 'The description of this review aspect'
           type: string
+          nullable: true
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - organization
         - name
     Aspect-write:
       type: object
-      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location'
+      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location.'
       required:
         - organization
         - name
@@ -6735,20 +6647,23 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         item:
           description: 'A specific that this aspect belongs to, e.g a single  product'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         name:
           description: 'The name of this review aspect'
           type: string
         description:
           description: 'The description of this review aspect'
           type: string
+          nullable: true
     'Aspect:jsonld-read':
       type: object
-      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location'
+      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location.'
       properties:
         '@context':
           readOnly: true
@@ -6765,6 +6680,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -6775,33 +6691,36 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         item:
           description: 'A specific that this aspect belongs to, e.g a single  product'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         name:
           description: 'The name of this review aspect'
           type: string
         description:
           description: 'The description of this review aspect'
           type: string
+          nullable: true
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - organization
         - name
     'Aspect:jsonld-write':
       type: object
-      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location'
+      description: 'A aspect that can be rated, e.g. the color of a product or appearence of a location.'
       required:
         - organization
         - name
@@ -6825,17 +6744,20 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         item:
           description: 'A specific that this aspect belongs to, e.g a single  product'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         name:
           description: 'The name of this review aspect'
           type: string
         description:
           description: 'The description of this review aspect'
           type: string
+          nullable: true
     AuditTrail-read:
       type: object
       description: 'An resource representing a log line.'
@@ -6920,27 +6842,26 @@ components:
           description: 'The moment this request was created'
           type: string
         headers:
-          readOnly: true
           description: 'The headers supplied by client'
           type: array
           items:
             type: string
         statusCode:
-          readOnly: true
           description: 'The status code returned to client'
           type: integer
+          nullable: true
         notFound:
-          readOnly: true
           description: 'Whether or not the reqousted endpoint was found'
           type: boolean
+          nullable: true
         forbidden:
-          readOnly: true
           description: 'Whether or not the client was allowed to the reqousted endpoint'
           type: boolean
+          nullable: true
         ok:
-          readOnly: true
           description: 'Whether or not there where any problems'
           type: boolean
+          nullable: true
         dateCreated:
           description: 'The moment this request was created'
           externalDocs:
@@ -7051,27 +6972,26 @@ components:
           description: 'The moment this request was created'
           type: string
         headers:
-          readOnly: true
           description: 'The headers supplied by client'
           type: array
           items:
             type: string
         statusCode:
-          readOnly: true
           description: 'The status code returned to client'
           type: integer
+          nullable: true
         notFound:
-          readOnly: true
           description: 'Whether or not the reqousted endpoint was found'
           type: boolean
+          nullable: true
         forbidden:
-          readOnly: true
           description: 'Whether or not the client was allowed to the reqousted endpoint'
           type: boolean
+          nullable: true
         ok:
-          readOnly: true
           description: 'Whether or not there where any problems'
           type: boolean
+          nullable: true
         dateCreated:
           description: 'The moment this request was created'
           externalDocs:
@@ -7216,96 +7136,6 @@ components:
         '@type':
           readOnly: true
           type: string
-    ExampleEntity-read:
-      type: object
-      description: 'This is an example entity.'
-      properties:
-        id:
-          readOnly: true
-          description: 'The UUID identifier of this object'
-          externalDocs:
-            url: 'http://schema.org/identifier'
-          type: string
-        name:
-          description: 'The name of this example property'
-          type: string
-        description:
-          description: 'The description of this example property'
-          type: string
-        camelCase:
-          description: 'Proof that we camel case our api'
-          type: string
-      required:
-        - name
-    ExampleEntity-write:
-      type: object
-      description: 'This is an example entity.'
-      required:
-        - name
-      properties:
-        name:
-          description: 'The name of this example property'
-          type: string
-        description:
-          description: 'The description of this example property'
-          type: string
-        camelCase:
-          description: 'Proof that we camel case our api'
-          type: string
-    'ExampleEntity:jsonld-read':
-      type: object
-      description: 'This is an example entity.'
-      properties:
-        '@context':
-          readOnly: true
-          type: string
-        '@id':
-          readOnly: true
-          type: string
-        '@type':
-          readOnly: true
-          type: string
-        id:
-          readOnly: true
-          description: 'The UUID identifier of this object'
-          externalDocs:
-            url: 'http://schema.org/identifier'
-          type: string
-        name:
-          description: 'The name of this example property'
-          type: string
-        description:
-          description: 'The description of this example property'
-          type: string
-        camelCase:
-          description: 'Proof that we camel case our api'
-          type: string
-      required:
-        - name
-    'ExampleEntity:jsonld-write':
-      type: object
-      description: 'This is an example entity.'
-      required:
-        - name
-      properties:
-        '@context':
-          readOnly: true
-          type: string
-        '@id':
-          readOnly: true
-          type: string
-        '@type':
-          readOnly: true
-          type: string
-        name:
-          description: 'The name of this example property'
-          type: string
-        description:
-          description: 'The description of this example property'
-          type: string
-        camelCase:
-          description: 'Proof that we camel case our api'
-          type: string
     Like-read:
       type: object
       description: 'The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.'
@@ -7316,6 +7146,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7332,15 +7163,15 @@ components:
             url: 'http://schema.org/url'
           type: string
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - organization
         - resource
@@ -7387,6 +7218,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7403,15 +7235,15 @@ components:
             url: 'http://schema.org/url'
           type: string
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - organization
         - resource
@@ -7450,7 +7282,7 @@ components:
           type: string
     Rating-read:
       type: object
-      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale'
+      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.'
       properties:
         id:
           readOnly: true
@@ -7458,6 +7290,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         review:
           $ref: '#/components/schemas/Review-read'
         author:
@@ -7478,25 +7311,29 @@ components:
         ratingExplanation:
           description: 'The rating given'
           type: string
+          nullable: true
         reviewAspect:
-          description: 'The aspect of the item that is rated'
-          $ref: '#/components/schemas/Aspect-read'
+          description: 'The aspect of the item that is rated.'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Aspect-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - review
         - ratingValue
     Rating-write:
       type: object
-      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale'
+      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.'
       required:
         - review
         - ratingValue
@@ -7509,12 +7346,16 @@ components:
         ratingExplanation:
           description: 'The rating given'
           type: string
+          nullable: true
         reviewAspect:
-          description: 'The aspect of the item that is rated'
-          $ref: '#/components/schemas/Aspect-write'
+          description: 'The aspect of the item that is rated.'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Aspect-write'
     'Rating:jsonld-read':
       type: object
-      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale'
+      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.'
       properties:
         '@context':
           readOnly: true
@@ -7531,6 +7372,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         review:
           $ref: '#/components/schemas/Review:jsonld-read'
         author:
@@ -7551,25 +7393,29 @@ components:
         ratingExplanation:
           description: 'The rating given'
           type: string
+          nullable: true
         reviewAspect:
-          description: 'The aspect of the item that is rated'
-          $ref: '#/components/schemas/Aspect:jsonld-read'
+          description: 'The aspect of the item that is rated.'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Aspect:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - review
         - ratingValue
     'Rating:jsonld-write':
       type: object
-      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale'
+      description: 'A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.'
       required:
         - review
         - ratingValue
@@ -7591,9 +7437,13 @@ components:
         ratingExplanation:
           description: 'The rating given'
           type: string
+          nullable: true
         reviewAspect:
-          description: 'The aspect of the item that is rated'
-          $ref: '#/components/schemas/Aspect:jsonld-write'
+          description: 'The aspect of the item that is rated.'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Aspect:jsonld-write'
     Review-read:
       type: object
       description: 'A review of an item - for example, of a restaurant, movie, or store.'
@@ -7604,6 +7454,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7614,11 +7465,13 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         author:
           description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         ratings:
           type: array
           items:
@@ -7628,15 +7481,15 @@ components:
           description: 'The overall rating, based on a collection of ratings, of this review rounded to a single decimal.'
           type: number
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - organization
         - resource
@@ -7657,11 +7510,13 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         author:
           description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         ratings:
           type: array
           items:
@@ -7685,6 +7540,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7695,11 +7551,13 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         author:
           description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         ratings:
           type: array
           items:
@@ -7709,15 +7567,15 @@ components:
           description: 'The overall rating, based on a collection of ratings, of this review rounded to a single decimal.'
           type: number
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - organization
         - resource
@@ -7747,11 +7605,13 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         author:
           description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         ratings:
           type: array
           items:
@@ -7831,221 +7691,6 @@ definitions:
         maxLength: 2255
     required:
       - organization
-      - name
-  AuditTrail-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line looks suspicius'
-        maxLength: 2555
-      application:
-        description: 'The application that made the request'
-        type: string
-        format: url
-        maxLength: 255
-      request:
-        description: 'The id of the request within that application'
-        type: string
-        format: url
-        maxLength: 255
-      user:
-        description: 'The user on behalf of wich the request was made'
-        type: string
-        format: url
-        maxLength: 255
-      subject:
-        description: '???'
-        type: string
-        maxLength: 255
-      process:
-        description: 'The procces on behalf of wich the request was made'
-        type: string
-        maxLength: 255
-      dataElements:
-        description: 'The moment this request was created'
-        type: array
-      dataSubjects:
-        description: 'The moment this request was created'
-        type: array
-      resource:
-        description: 'The resource that was requested'
-        type: string
-        maxLength: 255
-      resourceType:
-        description: 'The type of the resource that was requested'
-        type: string
-        maxLength: 255
-      route:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      endpoint:
-        description: 'The endpoint that the request was made to'
-        type: string
-        maxLength: 255
-      method:
-        description: 'The method that was used'
-        type: string
-        maxLength: 255
-      accept:
-        description: 'The contentType that was reqousted'
-        type: string
-        maxLength: 255
-      contentType:
-        description: 'The contentType that was suplieds'
-        type: string
-        maxLength: 255
-      content:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 2555
-      ip:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      headers:
-        description: 'The headers supplied by client'
-        type: array
-      statusCode:
-        description: 'The status code returned to client'
-        type: int
-        example: '200'
-      notFound:
-        description: 'Whether or not the reqousted endpoint was found'
-        type: bool
-        example: 'false'
-      forbidden:
-        description: 'Whether or not the client was allowed to the reqousted endpoint'
-        type: bool
-        example: 'false'
-      ok:
-        description: 'Whether or not there where any problems'
-        type: bool
-        example: 'true'
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-03-11 08:47:33'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-03-11 08:47:33'
-    required: []
-  AuditTrail-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line looks suspicius'
-        maxLength: 2555
-    required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-03-11 08:47:33'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-03-11 08:47:33'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
-  ExampleEntity-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this example property'
-        type: string
-        example: 'My Group'
-        maxLength: 255
-      description:
-        description: 'The description of this example property'
-        type: string
-        example: 'Is the best group ever'
-        maxLength: 2555
-      camelCase:
-        description: 'Proof that we camel case our api'
-        type: string
-        example: 'Best api ever'
-        maxLength: 255
-    required:
-      - name
-  ExampleEntity-write:
-    properties:
-      name:
-        description: 'The name of this example property'
-        type: string
-        example: 'My Group'
-        maxLength: 255
-      description:
-        description: 'The description of this example property'
-        type: string
-        example: 'Is the best group ever'
-        maxLength: 2555
-      camelCase:
-        description: 'Proof that we camel case our api'
-        type: string
-        example: 'Best api ever'
-        maxLength: 255
-    required:
       - name
   Like-read:
     properties:
@@ -8204,11 +7849,201 @@ definitions:
     required:
       - organization
       - resource
+  AuditTrail-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line looks suspicius'
+        maxLength: 2555
+      application:
+        description: 'The application that made the request'
+        type: string
+        format: url
+        maxLength: 255
+      request:
+        description: 'The id of the request within that application'
+        type: string
+        format: url
+        maxLength: 255
+      user:
+        description: 'The user on behalf of wich the request was made'
+        type: string
+        format: url
+        maxLength: 255
+      subject:
+        description: '???'
+        type: string
+        maxLength: 255
+      process:
+        description: 'The procces on behalf of wich the request was made'
+        type: string
+        maxLength: 255
+      dataElements:
+        description: 'The moment this request was created'
+        type: array
+      dataSubjects:
+        description: 'The moment this request was created'
+        type: array
+      resource:
+        description: 'The resource that was requested'
+        type: string
+        maxLength: 255
+      resourceType:
+        description: 'The type of the resource that was requested'
+        type: string
+        maxLength: 255
+      route:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      endpoint:
+        description: 'The endpoint that the request was made to'
+        type: string
+        maxLength: 255
+      method:
+        description: 'The method that was used'
+        type: string
+        maxLength: 255
+      accept:
+        description: 'The contentType that was reqousted'
+        type: string
+        maxLength: 255
+      contentType:
+        description: 'The contentType that was suplieds'
+        type: string
+        maxLength: 255
+      content:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 2555
+      ip:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      headers:
+        description: 'The headers supplied by client'
+        type: array
+      statusCode:
+        description: 'The status code returned to client'
+        type: int
+        example: '200'
+      notFound:
+        description: 'Whether or not the reqousted endpoint was found'
+        type: bool
+        example: 'false'
+      forbidden:
+        description: 'Whether or not the client was allowed to the reqousted endpoint'
+        type: bool
+        example: 'false'
+      ok:
+        description: 'Whether or not there where any problems'
+        type: bool
+        example: 'true'
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-06-05 07:13:54'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-06-05 07:13:54'
+    required: []
+  AuditTrail-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-06-05 07:13:54'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-06-05 07:13:54'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
 tags:
   -
     name: Aspect
     description: |
-      A aspect that can be rated, e.g. the color of a product or appearence of a location
+      A aspect that can be rated, e.g. the color of a product or appearence of a location.
+      
+      
+  -
+    name: Like
+    description: |
+      The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
+      
+      
+  -
+    name: Rating
+    description: |
+      A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.
+      
+      
+  -
+    name: Review
+    description: |
+      A review of an item - for example, of a restaurant, movie, or store.
       
       
   -
@@ -8223,50 +8058,26 @@ tags:
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
-  -
-    name: ExampleEntity
-    description: |
-      This is an example entity.
-      
-      With an adtional description, all in all its pritty nice [url](www.google.nl)
-  -
-    name: Like
-    description: |
-      The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
-      
-      
-  -
-    name: Rating
-    description: |
-      A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale
-      
-      
-  -
-    name: Review
-    description: |
-      A review of an item - for example, of a restaurant, movie, or store.
-      
-      
 securityDefinitions:
   JWT-Oauth:
     type: oauth2
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the Review resource'
-      write: 'write right to the Review resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the Review resource'
-      write: 'write right to the Review resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
-    name: conduction.nl
-    url: pc.dev.conduction.nl
+    name: ''
+    url: rc.dev.
 externalDocs:
   -
     description: 'OAS Documentatie'
