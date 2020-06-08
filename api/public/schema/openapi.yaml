@@ -7887,12 +7887,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-06-08 07:31:20'
+        example: '2020-06-08 08:49:22'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-06-08 07:31:20'
+        example: '2020-06-08 08:49:22'
     required: []
   ChangeLog-write:
     properties:
@@ -8006,12 +8006,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-06-08 07:31:20'
+        example: '2020-06-08 08:49:22'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-06-08 07:31:20'
+        example: '2020-06-08 08:49:22'
     required: []
   AuditTrail-write:
     properties:
@@ -8076,8 +8076,8 @@ securityDefinitions:
 host: irc.zaakonline.nl
 servers:
   -
-    name: ''
-    url: rc.dev.
+    name: conduction.nl
+    url: rc.dev.conduction.nl
 externalDocs:
   -
     description: 'OAS Documentatie'

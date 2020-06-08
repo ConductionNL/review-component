@@ -4,7 +4,7 @@
 
 settings:
   registryBase: docker.io/conduction
-  projectName: pc
+  projectName: rc
   name: rc
   title: Review Component
   version: V.0.1
@@ -12,9 +12,9 @@ settings:
   description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
   type: component
   repro: https://github.com/ConductionNL/review-component
-  demo: rc.zaakonline.nl
+  demo: rc.conduction.nl
   container: https://hub.docker.com/repository/docker/conduction/rc-php
-  domain: 
+  domain: conduction.nl
   subdomain: rc
   organisationName: Conduction
   email: info@conduction.nl
@@ -27,7 +27,7 @@ settings:
   cache: 1
   replicaCount: 1
   corsAllowOrigin: ['*']
-  trustedHosts: '^localhost$|^127.0.0.1$|^(.+\.)?conduction\.nl$'
+  trustedHosts: '^.+$'
   pullPolicy: Always
   # You will need these proxies on kubernetes
   trustedProxies:
