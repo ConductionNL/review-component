@@ -14,7 +14,7 @@ settings:
   repro: https://github.com/ConductionNL/review-component
   demo: rc.conduction.nl
   container: https://hub.docker.com/repository/docker/conduction/rc-php
-  domain: conduction.nl
+  domain: dev
   subdomain: rc
   organisationName: Conduction
   email: info@conduction.nl
