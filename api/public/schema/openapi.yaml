@@ -3203,6 +3203,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[review]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[organization]'
           in: query
           required: false
@@ -3303,6 +3312,22 @@ paths:
             type: string
         -
           name: 'id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: review
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'review[]'
           in: query
           required: false
           schema:
@@ -5412,6 +5437,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[review]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[organization]'
           in: query
           required: false
@@ -5512,6 +5546,22 @@ paths:
             type: string
         -
           name: 'id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: review
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'review[]'
           in: query
           required: false
           schema:
@@ -7518,6 +7568,9 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
+        review:
+          description: 'The review as string'
+          type: string
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7554,15 +7607,20 @@ components:
           format: date-time
           nullable: true
       required:
+        - review
         - organization
         - resource
     Review-write:
       type: object
       description: 'A review of an item - for example, of a restaurant, movie, or store.'
       required:
+        - review
         - organization
         - resource
       properties:
+        review:
+          description: 'The review as string'
+          type: string
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7604,6 +7662,9 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
+        review:
+          description: 'The review as string'
+          type: string
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7640,12 +7701,14 @@ components:
           format: date-time
           nullable: true
       required:
+        - review
         - organization
         - resource
     'Review:jsonld-write':
       type: object
       description: 'A review of an item - for example, of a restaurant, movie, or store.'
       required:
+        - review
         - organization
         - resource
       properties:
@@ -7657,6 +7720,9 @@ components:
           type: string
         '@type':
           readOnly: true
+          type: string
+        review:
+          description: 'The review as string'
           type: string
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
@@ -7755,51 +7821,6 @@ definitions:
     required:
       - organization
       - name
-  Rating-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      ratingValue:
-        description: 'an explanation for the given rating'
-        type: int
-        example: '5'
-        maxLength: 2
-      ratingExplanation:
-        description: 'The rating given'
-        type: string
-        example: 'I really like the color!'
-        maxLength: 2255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: \Datetime
-      review: []
-      reviewAspect: []
-    required:
-      - ratingValue
-      - review
-  Rating-write:
-    properties:
-      ratingValue:
-        description: 'an explanation for the given rating'
-        type: int
-        example: '5'
-        maxLength: 2
-      ratingExplanation:
-        description: 'The rating given'
-        type: string
-        example: 'I really like the color!'
-        maxLength: 2255
-      review: []
-      reviewAspect: []
-    required:
-      - ratingValue
-      - review
   Like-read:
     properties:
       id:
@@ -7857,6 +7878,51 @@ definitions:
       - organization
       - resource
       - author
+  Rating-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      ratingValue:
+        description: 'an explanation for the given rating'
+        type: int
+        example: '5'
+        maxLength: 2
+      ratingExplanation:
+        description: 'The rating given'
+        type: string
+        example: 'I really like the color!'
+        maxLength: 2255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \Datetime
+      review: []
+      reviewAspect: []
+    required:
+      - ratingValue
+      - review
+  Rating-write:
+    properties:
+      ratingValue:
+        description: 'an explanation for the given rating'
+        type: int
+        example: '5'
+        maxLength: 2
+      ratingExplanation:
+        description: 'The rating given'
+        type: string
+        example: 'I really like the color!'
+        maxLength: 2255
+      review: []
+      reviewAspect: []
+    required:
+      - ratingValue
+      - review
   Review-read:
     properties:
       id:
@@ -7864,6 +7930,10 @@ definitions:
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
+      review:
+        description: 'The review as string'
+        type: string
+        example: 'Best drink ever!'
       organization:
         description: 'A specific commonground organisation that is being reviewd, e.g a single product'
         type: string
@@ -7888,10 +7958,15 @@ definitions:
         type: \Datetime
       ratings: []
     required:
+      - review
       - organization
       - resource
   Review-write:
     properties:
+      review:
+        description: 'The review as string'
+        type: string
+        example: 'Best drink ever!'
       organization:
         description: 'A specific commonground organisation that is being reviewd, e.g a single product'
         type: string
@@ -7910,61 +7985,9 @@ definitions:
         maxLength: 255
       ratings: []
     required:
+      - review
       - organization
       - resource
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-06-17 13:32:49'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-06-17 13:32:49'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
   AuditTrail-read:
     properties:
       id:
@@ -8069,12 +8092,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-06-17 13:32:49'
+        example: '2020-07-09 11:35:55'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-06-17 13:32:49'
+        example: '2020-07-09 11:35:55'
     required: []
   AuditTrail-write:
     properties:
@@ -8082,6 +8105,59 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-07-09 11:35:55'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-07-09 11:35:55'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -8092,15 +8168,15 @@ tags:
       
       
   -
-    name: Rating
-    description: |
-      A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.
-      
-      
-  -
     name: Like
     description: |
       The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
+      
+      
+  -
+    name: Rating
+    description: |
+      A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.
       
       
   -
@@ -8110,13 +8186,13 @@ tags:
       
       
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -8127,15 +8203,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -

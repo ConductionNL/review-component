@@ -80,6 +80,16 @@ class Review
     private $id;
 
     /**
+     * @var string The review as string
+     * @example Best drink ever!
+     *
+     * @Assert\NotNull
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $review;
+
+    /**
      * @var string A specific commonground organisation that is being reviewd, e.g a single product
      *
      * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
@@ -159,6 +169,18 @@ class Review
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getReview(): ?string
+    {
+        return $this->review;
+    }
+
+    public function setReview(string $review): self
+    {
+        $this->review = $review;
+
+        return $this;
     }
 
     public function getOrganization(): ?string
