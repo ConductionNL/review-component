@@ -81,6 +81,7 @@ class Review
 
     /**
      * @var string The review as string
+     *
      * @example Best drink ever!
      *
      * @Assert\NotNull
