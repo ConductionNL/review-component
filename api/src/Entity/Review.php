@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A review of an item - for example, of a restaurant, movie, or store.
  *
  * @ApiResource(
+ *     attributes={"order"={"dateModified": "DESC"}},
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
