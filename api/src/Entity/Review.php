@@ -59,7 +59,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
  * @ApiFilter(SearchFilter::class, properties={
- *     "resource": "exact"})
+ *     "resource": "exact",
+ *     "author": "exact"})
  */
 class Review
 {

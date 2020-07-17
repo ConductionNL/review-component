@@ -3210,6 +3210,22 @@ paths:
           style: form
           explode: true
         -
+          name: author
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'author[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: page
           in: query
           required: false
@@ -5236,6 +5252,22 @@ paths:
             type: string
         -
           name: 'resource[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: author
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'author[]'
           in: query
           required: false
           schema:
@@ -7694,12 +7726,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-07-10 11:07:53'
+        example: '2020-07-17 19:09:13'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-07-10 11:07:53'
+        example: '2020-07-17 19:09:13'
     required: []
   AuditTrail-write:
     properties:
@@ -7747,12 +7779,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-07-10 11:07:53'
+        example: '2020-07-17 19:09:13'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-07-10 11:07:53'
+        example: '2020-07-17 19:09:13'
     required: []
   ChangeLog-write:
     properties:
