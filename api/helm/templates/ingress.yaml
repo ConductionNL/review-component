@@ -19,14 +19,14 @@ spec:
               - {{ $.Values.settings.domain }}
           secretName: {{ template "fullname" . }}
     rules:
-        {{- if and (eq $.Values.settings.env "prod") $.Values.settings.subdomain }}
+    {{- if and (eq $.Values.settings.env "prod") $.Values.settings.subdomain }}
 
-      - host: {{ $.Values.settings.subdomain }}.{{ $.Values.settings.domain }}
-        http:
-            paths:
-                  - backend:
-                      serviceName: {{ $.Values.settings.name }}
-                      servicePort: 80
+    - host: {{ $.Values.settings.subdomain }}.{{ $.Values.settings.domain }}
+      http:
+          paths:
+              - backend:
+                    serviceName: {{ $.Values.settings.name }}
+                    servicePort: 80
     {{- else if eq $.Values.settings.env "prod" }}
     - host: {{ $.Values.settings.domain }}
       http:

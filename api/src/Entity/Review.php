@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A review of an item - for example, of a restaurant, movie, or store.
  *
  * @ApiResource(
+ *     attributes={"order"={"dateModified": "DESC"}},
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
@@ -59,9 +58,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
  * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
- * @ApiFilter(OrderFilter::class)
- * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class)
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "resource": "exact",
+ *     "author": "exact"})
  */
 class Review
 {
@@ -78,6 +77,17 @@ class Review
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
+
+    /**
+     * @var string The review as string
+     *
+     * @example Best drink ever!
+     *
+     * @Assert\NotNull
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $review;
 
     /**
      * @var string A specific commonground organisation that is being reviewd, e.g a single product
@@ -159,6 +169,18 @@ class Review
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getReview(): ?string
+    {
+        return $this->review;
+    }
+
+    public function setReview(string $review): self
+    {
+        $this->review = $review;
+
+        return $this;
     }
 
     public function getOrganization(): ?string
