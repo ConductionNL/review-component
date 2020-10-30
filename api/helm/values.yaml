@@ -7,7 +7,8 @@ settings:
   projectName: rc
   name: rc
   title: Review Component
-  version: V.0.1
+  version: V1.0
+  majorVersion: v1
   id: 
   description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
   type: component
@@ -16,6 +17,8 @@ settings:
   container: https://hub.docker.com/repository/docker/conduction/rc-php
   domain: conduction.nl
   subdomain: rc
+  subpath: rc
+  subpathRouting: true
   organisationName: Conduction
   email: info@conduction.nl
   country: Netherlands
