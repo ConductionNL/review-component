@@ -5,3 +5,7 @@ name: {{ app_name|replace({' ': ''})|lower }}
 version: 0.1.0
 home: {{ app_home }}
 icon: {{ app_logo }}
+dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      condition: postgresql.enabled
