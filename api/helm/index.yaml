@@ -1,16 +1,50 @@
 apiVersion: v1
 entries:
+  postgresql:
+  - annotations:
+      category: Database
+    apiVersion: v1
+    appVersion: 11.10.0
+    created: "2020-11-16T11:30:06.0891721Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 0.x.x
+    description: Chart for PostgreSQL, an object-relational database management system
+      (ORDBMS) with an emphasis on extensibility and on standards-compliance.
+    digest: 090f315d5008ff43544fd8a13c19f4ccda8fcf1c2921a6d80bef1d688ae92699
+    home: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-110x117.png
+    keywords:
+    - postgresql
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    - email: cedric@desaintmartin.fr
+      name: desaintmartin
+    name: postgresql
+    sources:
+    - https://github.com/bitnami/bitnami-docker-postgresql
+    - https://www.postgresql.org/
+    urls:
+    - charts/postgresql-9.8.12.tgz
+    version: 9.8.12
   rc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-10-30T13:01:06.3195054Z"
+    created: "2020-11-16T11:30:06.0746866Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
-    digest: 51c052cd68cc530ea8998726e0f1bc81d2381d1b2b504d93ac9f0a6391d8aaad
+    digest: 4d0828a4d61736af63fbda3307342999760774c888f6f521f605d96a421e6486
     home: rc.zaakonline.nl
     icon: rc.zaakonline.nl
     name: rc
     urls:
     - rc-0.1.0.tgz
     version: 0.1.0
-generated: "2020-10-30T13:01:06.3080571Z"
+generated: "2020-11-16T11:30:06.0543506Z"
