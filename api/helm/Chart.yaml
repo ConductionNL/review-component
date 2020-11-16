@@ -5,3 +5,8 @@ name: rc
 version: 0.1.0
 home: rc.zaakonline.nl
 icon: rc.zaakonline.nl
+dependencies:
+    - name: postgresql
+      version: 8.6.4
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      condition: postgresql.enabled
