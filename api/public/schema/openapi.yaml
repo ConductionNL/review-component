@@ -7467,6 +7467,51 @@ definitions:
     required:
       - organization
       - name
+  Rating-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      ratingValue:
+        description: 'an explanation for the given rating'
+        type: int
+        example: '5'
+        maxLength: 2
+      ratingExplanation:
+        description: 'The rating given'
+        type: string
+        example: 'I really like the color!'
+        maxLength: 2255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \Datetime
+      review: []
+      reviewAspect: []
+    required:
+      - ratingValue
+      - review
+  Rating-write:
+    properties:
+      ratingValue:
+        description: 'an explanation for the given rating'
+        type: int
+        example: '5'
+        maxLength: 2
+      ratingExplanation:
+        description: 'The rating given'
+        type: string
+        example: 'I really like the color!'
+        maxLength: 2255
+      review: []
+      reviewAspect: []
+    required:
+      - ratingValue
+      - review
   Like-read:
     properties:
       id:
@@ -7524,51 +7569,6 @@ definitions:
       - organization
       - resource
       - author
-  Rating-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      ratingValue:
-        description: 'an explanation for the given rating'
-        type: int
-        example: '5'
-        maxLength: 2
-      ratingExplanation:
-        description: 'The rating given'
-        type: string
-        example: 'I really like the color!'
-        maxLength: 2255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: \Datetime
-      review: []
-      reviewAspect: []
-    required:
-      - ratingValue
-      - review
-  Rating-write:
-    properties:
-      ratingValue:
-        description: 'an explanation for the given rating'
-        type: int
-        example: '5'
-        maxLength: 2
-      ratingExplanation:
-        description: 'The rating given'
-        type: string
-        example: 'I really like the color!'
-        maxLength: 2255
-      review: []
-      reviewAspect: []
-    required:
-      - ratingValue
-      - review
   Review-read:
     properties:
       id:
@@ -7634,6 +7634,59 @@ definitions:
       - review
       - organization
       - resource
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-11-16 11:31:10'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-11-16 11:31:10'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
   AuditTrail-read:
     properties:
       id:
@@ -7738,12 +7791,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-11-16 11:16:12'
+        example: '2020-11-16 11:31:10'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-11-16 11:16:12'
+        example: '2020-11-16 11:31:10'
     required: []
   AuditTrail-write:
     properties:
@@ -7751,59 +7804,6 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
-        maxLength: 2555
-    required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-11-16 11:16:12'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-11-16 11:16:12'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -7814,15 +7814,15 @@ tags:
       
       
   -
-    name: Like
-    description: |
-      The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
-      
-      
-  -
     name: Rating
     description: |
       A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.
+      
+      
+  -
+    name: Like
+    description: |
+      The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
       
       
   -
@@ -7832,13 +7832,13 @@ tags:
       
       
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
@@ -7849,15 +7849,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
 host: irc.zaakonline.nl
 servers:
   -

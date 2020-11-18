@@ -7,6 +7,5 @@ home: rc.zaakonline.nl
 icon: rc.zaakonline.nl
 dependencies:
     - name: postgresql
-      version: 9.8.12
       repository: https://charts.bitnami.com/bitnami
       condition: postgresql.enabled
