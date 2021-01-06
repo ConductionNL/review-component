@@ -17,20 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * The review stats for a resource
  *
- * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
- *     itemOperations={
- *          "get",
- *     },
- *     collectionOperations={
- * 		"get"
- * 		},
+ *  * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
  * )
- *
- * @ApiFilter(SearchFilter::class, properties={
- *     "resource": "exact",
- *     "author": "exact"})
  */
 class Total
 {
@@ -93,6 +83,11 @@ class Total
      */
     private $reviews;
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getOrganization(): ?string
     {
         return $this->organization;
@@ -148,7 +143,7 @@ class Total
 
     public function setReviews(int $review): self
     {
-        $this->reviews = $reviews;
+        $this->reviews = $review;
 
         return $this;
     }

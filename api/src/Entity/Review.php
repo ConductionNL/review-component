@@ -75,9 +75,8 @@ class Review
      *
      * @example Best drink ever!
      *
-     * @Assert\NotNull
      * @Groups({"read", "write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $review;
 
@@ -118,6 +117,16 @@ class Review
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $author;
+
+    /**
+     * @var int A rating for this specific review
+     *
+     * @example 5
+     *
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="integer", length=11, nullable=true)
+     */
+    private $rating;
 
     /**
      * @MaxDepth(1)
@@ -207,6 +216,18 @@ class Review
     public function setAuthor(string $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
 
         return $this;
     }
