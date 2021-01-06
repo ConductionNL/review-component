@@ -44,15 +44,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     },
  *     collectionOperations={
  * 		"get",
- * 	    "post",
- *      "item_total"={
- *         "method"="GET",
- *         "path"="/item_total",
- *              "swagger_context" = {
- *                  "summary"="Gets organization review totals",
- *                  "description"="More text here"
- *              }
- *     		}
+ * 	    "post"
  * 		},
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
