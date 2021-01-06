@@ -32,7 +32,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/Aspect:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/json+ld:
@@ -42,7 +42,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/Aspect:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/hal+json:
@@ -1197,7 +1197,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/AuditTrail:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/json+ld:
@@ -1207,7 +1207,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/AuditTrail:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/hal+json:
@@ -2218,7 +2218,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/ChangeLog:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/json+ld:
@@ -2228,7 +2228,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/ChangeLog:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/hal+json:
@@ -3107,214 +3107,6 @@ paths:
             schema:
               $ref: '#/components/schemas/ChangeLog-write'
         description: 'The updated ChangeLog resource'
-  /item_total:
-    get:
-      tags:
-        - Review
-      operationId: item_totalReviewCollection
-      summary: 'Retrieves the collection of Review resources.'
-      responses:
-        200:
-          description: 'Review collection response'
-          content:
-            application/ld+json:
-              schema:
-                type: object
-                properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Review:jsonld-read' } }
-                  'hydra:totalItems': { type: integer, minimum: 0 }
-                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
-                required:
-                  - 'hydra:member'
-            application/json+ld:
-              schema:
-                type: object
-                properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Review:jsonld-read' } }
-                  'hydra:totalItems': { type: integer, minimum: 0 }
-                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
-                required:
-                  - 'hydra:member'
-            application/hal+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            application/json+hal:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            application/vnd.api+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            application/json+vnd.api:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            application/health+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            application/json+health:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            application/x-yaml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            text/csv:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-            text/html:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Review-read'
-      parameters:
-        -
-          name: resource
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'resource[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: author
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'author[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: page
-          in: query
-          required: false
-          description: 'The collection page number'
-          schema:
-            type: integer
-            default: 1
-        -
-          name: limit
-          in: query
-          required: false
-          description: 'The number of items per page'
-          schema:
-            type: integer
-            default: 30
-            minimum: 0
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
-        -
-          name: Link
-          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
-          in: header
-        -
-          name: 'extend[]'
-          required: false
-          description: 'An array of nested objects to include in the return object'
-          in: query
-          schema:
-            type: array
-        -
-          name: 'fields[]'
-          required: false
-          description: 'An array of fields to return in output, wil return all fields is not supplied'
-          in: query
-          schema:
-            type: array
-        -
-          name: validOn
-          required: false
-          description: 'Returns object as valid on a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validFrom
-          required: false
-          description: 'Returns objects valid from a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-        -
-          name: validUntil
-          required: false
-          description: 'Returns objects valid until a given date time'
-          schema:
-            type: string
-            format: date-time
-          in: query
-      produces:
-        - application/health+json
   /likes:
     get:
       tags:
@@ -3332,7 +3124,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/Like:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/json+ld:
@@ -3342,7 +3134,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/Like:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/hal+json:
@@ -4079,7 +3871,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/Rating:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/json+ld:
@@ -4089,7 +3881,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/Rating:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/hal+json:
@@ -5119,7 +4911,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/Review:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/json+ld:
@@ -5129,7 +4921,7 @@ paths:
                   'hydra:member': { type: array, items: { $ref: '#/components/schemas/Review:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
-                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
                 required:
                   - 'hydra:member'
             application/hal+json:
@@ -6271,6 +6063,731 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
+  /totals:
+    get:
+      tags:
+        - Total
+      operationId: getTotalCollection
+      summary: 'Retrieves the collection of Total resources.'
+      responses:
+        200:
+          description: 'Total collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Total:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Total:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string, nullable: true }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Total-read'
+      parameters:
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Total
+      operationId: postTotalCollection
+      summary: 'Creates a Total resource.'
+      responses:
+        201:
+          description: 'Total resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Total:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Total:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Total:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Total:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+        description: 'The new Total resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/totals/{id}':
+    get:
+      tags:
+        - Total
+      operationId: getTotalItem
+      summary: 'Retrieves a Total resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Total resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Total:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Total:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    delete:
+      tags:
+        - Total
+      operationId: deleteTotalItem
+      summary: 'Removes the Total resource.'
+      responses:
+        204:
+          description: 'Total resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+    put:
+      tags:
+        - Total
+      operationId: putTotalItem
+      summary: 'Replaces the Total resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Total resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Total:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Total:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Total:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Total:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+        description: 'The updated Total resource'
+    patch:
+      tags:
+        - Total
+      operationId: patchTotalItem
+      summary: 'Updates the Total resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Total resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Total:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Total:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Total-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Total:jsonld-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          applications/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Total-write'
+        description: 'The updated Total resource'
 components:
   schemas:
     Aspect-read:
@@ -7178,6 +7695,10 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        rating:
+          description: 'A rating for this specific review'
+          type: integer
+          nullable: true
         ratings:
           type: array
           items:
@@ -7228,6 +7749,10 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        rating:
+          description: 'A rating for this specific review'
+          type: integer
+          nullable: true
         ratings:
           type: array
           items:
@@ -7271,6 +7796,10 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
+        rating:
+          description: 'A rating for this specific review'
+          type: integer
           nullable: true
         ratings:
           type: array
@@ -7331,10 +7860,118 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        rating:
+          description: 'A rating for this specific review'
+          type: integer
+          nullable: true
         ratings:
           type: array
           items:
             $ref: '#/components/schemas/Rating:jsonld-write'
+    Total-read:
+      type: object
+      description: 'The review stats for a resource'
+      required:
+        - organization
+        - resource
+      properties:
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        rating:
+          description: 'The overall rating, based on a collection of ratings, of this review rounded to a single decimal.'
+          type: number
+        likes:
+          description: 'The total amount of likes.'
+          type: integer
+        reviews:
+          description: 'The total amount of revieuws'
+          type: integer
+    Total-write:
+      type: object
+      description: 'The review stats for a resource'
+      required:
+        - organization
+        - resource
+      properties:
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+    'Total:jsonld-read':
+      type: object
+      description: 'The review stats for a resource'
+      required:
+        - organization
+        - resource
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        rating:
+          description: 'The overall rating, based on a collection of ratings, of this review rounded to a single decimal.'
+          type: number
+        likes:
+          description: 'The total amount of likes.'
+          type: integer
+        reviews:
+          description: 'The total amount of revieuws'
+          type: integer
+    'Total:jsonld-write':
+      type: object
+      description: 'The review stats for a resource'
+      required:
+        - organization
+        - resource
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        organization:
+          description: 'A specific commonground organisation that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        resource:
+          description: 'A specific commonground resource that is being reviewd, e.g a single product'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
 definitions:
   Aspect-read:
     properties:
@@ -7411,51 +8048,6 @@ definitions:
     required:
       - organization
       - name
-  Rating-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      ratingValue:
-        description: 'an explanation for the given rating'
-        type: int
-        example: '5'
-        maxLength: 2
-      ratingExplanation:
-        description: 'The rating given'
-        type: string
-        example: 'I really like the color!'
-        maxLength: 2255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: \Datetime
-      review: []
-      reviewAspect: []
-    required:
-      - ratingValue
-      - review
-  Rating-write:
-    properties:
-      ratingValue:
-        description: 'an explanation for the given rating'
-        type: int
-        example: '5'
-        maxLength: 2
-      ratingExplanation:
-        description: 'The rating given'
-        type: string
-        example: 'I really like the color!'
-        maxLength: 2255
-      review: []
-      reviewAspect: []
-    required:
-      - ratingValue
-      - review
   Like-read:
     properties:
       id:
@@ -7513,6 +8105,51 @@ definitions:
       - organization
       - resource
       - author
+  Rating-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      ratingValue:
+        description: 'an explanation for the given rating'
+        type: int
+        example: '5'
+        maxLength: 2
+      ratingExplanation:
+        description: 'The rating given'
+        type: string
+        example: 'I really like the color!'
+        maxLength: 2255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \Datetime
+      review: []
+      reviewAspect: []
+    required:
+      - ratingValue
+      - review
+  Rating-write:
+    properties:
+      ratingValue:
+        description: 'an explanation for the given rating'
+        type: int
+        example: '5'
+        maxLength: 2
+      ratingExplanation:
+        description: 'The rating given'
+        type: string
+        example: 'I really like the color!'
+        maxLength: 2255
+      review: []
+      reviewAspect: []
+    required:
+      - ratingValue
+      - review
   Review-read:
     properties:
       id:
@@ -7540,6 +8177,10 @@ definitions:
         example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
         format: url
         maxLength: 255
+      rating:
+        description: 'A rating for this specific review'
+        type: int
+        example: '5'
       dateCreated:
         description: 'The moment this request was created'
         type: \Datetime
@@ -7573,64 +8214,15 @@ definitions:
         example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
         format: url
         maxLength: 255
+      rating:
+        description: 'A rating for this specific review'
+        type: int
+        example: '5'
       ratings: []
     required:
       - review
       - organization
       - resource
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-11-26 15:40:34'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-11-26 15:40:34'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
   AuditTrail-read:
     properties:
       id:
@@ -7735,12 +8327,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-11-26 15:40:34'
+        example: '2021-01-06 15:19:16'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-11-26 15:40:34'
+        example: '2021-01-06 15:19:16'
     required: []
   AuditTrail-write:
     properties:
@@ -7748,6 +8340,59 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2021-01-06 15:19:16'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2021-01-06 15:19:16'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -7758,15 +8403,15 @@ tags:
       
       
   -
-    name: Rating
-    description: |
-      A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.
-      
-      
-  -
     name: Like
     description: |
       The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
+      
+      
+  -
+    name: Rating
+    description: |
+      A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.
       
       
   -
@@ -7776,13 +8421,13 @@ tags:
       
       
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -7793,15 +8438,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
