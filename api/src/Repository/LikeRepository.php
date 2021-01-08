@@ -19,7 +19,7 @@ class LikeRepository extends ServiceEntityRepository
         parent::__construct($registry, Like::class);
     }
 
-    public function calculateLikes($organization, $resource = false): int
+    public function calculateLikes($organization, $resource = false)
     {
 
         $query = $this->createQueryBuilder('r')
@@ -36,6 +36,11 @@ class LikeRepository extends ServiceEntityRepository
         return $query->getQuery()->getSingleScalarResult();
     }
 
+    public function checkLiked($organization, $resource = false, $user = false)
+    {
+
+        return false;
+    }
     // /**
     //  * @return Like[] Returns an array of Like objects
     //  */

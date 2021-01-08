@@ -19,7 +19,7 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
-    public function calculateRating($organization, $resource = false): int
+    public function calculateRating($organization, $resource = false)
     {
         $query = $this->createQueryBuilder('r')
             ->andWhere('r.organization LIKE :organization')
@@ -35,7 +35,7 @@ class ReviewRepository extends ServiceEntityRepository
         return $query->getQuery()->getSingleScalarResult();
     }
 
-    public function calculateReviews($organization, $resource = false): int
+    public function calculateReviews($organization, $resource = false)
     {
         $query = $this->createQueryBuilder('r')
             ->andWhere('r.organization LIKE :organization')
