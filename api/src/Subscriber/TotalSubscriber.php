@@ -42,6 +42,7 @@ class TotalSubscriber implements EventSubscriberInterface
     public function calculateTotal(ViewEvent $event)
     {
         $total = $event->getControllerResult();
+        $user = $event->getRequest()->get('user', false);
         $organization = $event->getRequest()->get('organization', false);
         $resource = $event->getRequest()->get('resource', false);
         $route = $event->getRequest()->attributes->get('_route');
@@ -58,6 +59,7 @@ class TotalSubscriber implements EventSubscriberInterface
         $rating = $this->em->getRepository("App\Entity\Review")->calculateRating($organization,$resource);
         $reviews = $this->em->getRepository("App\Entity\Review")->calculateReviews($organization,$resource);
         $likes = $this->em->getRepository("App\Entity\Like")->calculateLikes($organization,$resource);
+        $liked = $this->em->getRepository("App\Entity\Like")-checkLiked($organization,$resource);
 
         switch ($contentType) {
             case 'application/json':
@@ -77,8 +79,10 @@ class TotalSubscriber implements EventSubscriberInterface
         $total = [
             'organization'    => $organization,
             'resource'   => $resource,
+            'user'   => $user,
             'reviews' => $reviews,
             'likes'     => $likes,
+            'liked'     => $liked,
             'rating'    => $rating,
         ];
 
