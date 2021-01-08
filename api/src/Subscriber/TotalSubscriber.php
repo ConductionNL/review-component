@@ -59,7 +59,7 @@ class TotalSubscriber implements EventSubscriberInterface
         $rating = $this->em->getRepository("App\Entity\Review")->calculateRating($organization,$resource);
         $reviews = $this->em->getRepository("App\Entity\Review")->calculateReviews($organization,$resource);
         $likes = $this->em->getRepository("App\Entity\Like")->calculateLikes($organization,$resource);
-        $liked = $this->em->getRepository("App\Entity\Like")-checkLiked($organization,$resource);
+        $liked = $this->em->getRepository("App\Entity\Like")->checkLiked($organization,$resource);
 
         switch ($contentType) {
             case 'application/json':
