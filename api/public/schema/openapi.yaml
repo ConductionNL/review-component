@@ -7678,6 +7678,7 @@ components:
         review:
           description: 'The review as string'
           type: string
+          nullable: true
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7718,20 +7719,16 @@ components:
           format: date-time
           nullable: true
       required:
-        - review
         - organization
         - resource
     Review-write:
       type: object
       description: 'A review of an item - for example, of a restaurant, movie, or store.'
-      required:
-        - review
-        - organization
-        - resource
       properties:
         review:
           description: 'The review as string'
           type: string
+          nullable: true
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7757,6 +7754,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Rating-write'
+      required:
+        - organization
+        - resource
     'Review:jsonld-read':
       type: object
       description: 'A review of an item - for example, of a restaurant, movie, or store.'
@@ -7780,6 +7780,7 @@ components:
         review:
           description: 'The review as string'
           type: string
+          nullable: true
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7820,16 +7821,11 @@ components:
           format: date-time
           nullable: true
       required:
-        - review
         - organization
         - resource
     'Review:jsonld-write':
       type: object
       description: 'A review of an item - for example, of a restaurant, movie, or store.'
-      required:
-        - review
-        - organization
-        - resource
       properties:
         '@context':
           readOnly: true
@@ -7843,6 +7839,7 @@ components:
         review:
           description: 'The review as string'
           type: string
+          nullable: true
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7868,13 +7865,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Rating:jsonld-write'
-    Total-read:
-      type: object
-      description: 'The review stats for a resource'
       required:
         - organization
         - resource
+    Total-read:
+      type: object
+      description: 'The review stats for a resource'
       properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7894,6 +7898,9 @@ components:
         reviews:
           description: 'The total amount of revieuws'
           type: integer
+      required:
+        - organization
+        - resource
     Total-write:
       type: object
       description: 'The review stats for a resource'
@@ -7914,9 +7921,6 @@ components:
     'Total:jsonld-read':
       type: object
       description: 'The review stats for a resource'
-      required:
-        - organization
-        - resource
       properties:
         '@context':
           readOnly: true
@@ -7927,6 +7931,13 @@ components:
         '@type':
           readOnly: true
           type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
         organization:
           description: 'A specific commonground organisation that is being reviewd, e.g a single product'
           externalDocs:
@@ -7946,6 +7957,9 @@ components:
         reviews:
           description: 'The total amount of revieuws'
           type: integer
+      required:
+        - organization
+        - resource
     'Total:jsonld-write':
       type: object
       description: 'The review stats for a resource'
@@ -8189,7 +8203,6 @@ definitions:
         type: \Datetime
       ratings: []
     required:
-      - review
       - organization
       - resource
   Review-write:
@@ -8220,7 +8233,6 @@ definitions:
         example: '5'
       ratings: []
     required:
-      - review
       - organization
       - resource
   AuditTrail-read:
@@ -8327,12 +8339,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-01-06 15:19:16'
+        example: '2021-01-11 07:34:29'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-01-06 15:19:16'
+        example: '2021-01-11 07:34:29'
     required: []
   AuditTrail-write:
     properties:
@@ -8380,12 +8392,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-01-06 15:19:16'
+        example: '2021-01-11 07:34:29'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-01-06 15:19:16'
+        example: '2021-01-11 07:34:29'
     required: []
   ChangeLog-write:
     properties:
