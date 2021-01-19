@@ -19,6 +19,39 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
+    public function calculateRating($organization, $resource = false)
+    {
+        $query = $this->createQueryBuilder('r')
+            ->andWhere('r.organization LIKE :organization')
+            ->setParameter('organization', '%'.$organization.'%')
+            ->select('AVG(r.rating) as rating');
+
+        if($resource){
+            $query
+                ->andWhere('r.resource LIKE :resource')
+                ->setParameter('resource', '%'.$resource.'%');
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
+    public function calculateReviews($organization, $resource = false)
+    {
+        $query = $this->createQueryBuilder('r')
+            ->andWhere('r.organization LIKE :organization')
+            ->setParameter('organization', '%'.$organization.'%')
+            ->select('COUNT(r.id) as reviews');
+
+        if($resource){
+            $query
+                ->andWhere('r.resource LIKE :resource')
+                ->setParameter('resource', '%'.$resource.'%');
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
+
     // /**
     //  * @return Review[] Returns an array of Review objects
     //  */

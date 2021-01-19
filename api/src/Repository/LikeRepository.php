@@ -19,32 +19,26 @@ class LikeRepository extends ServiceEntityRepository
         parent::__construct($registry, Like::class);
     }
 
-    // /**
-    //  * @return Like[] Returns an array of Like objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function calculateLikes($organization, $resource = false)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Like
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $this->createQueryBuilder('r')
+            ->andWhere('r.organization LIKE :organization')
+            ->setParameter('organization', '%'.$organization.'%')
+            ->select('COUNT(r.id) as likes');
+
+        if($resource){
+            $query
+                ->andWhere('r.resource LIKE :resource')
+                ->setParameter('resource', '%'.$resource.'%');
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
     }
-    */
+
+    public function checkLiked($organization, $resource = false, $user = false)
+    {
+        return false;
+    }
+
 }
