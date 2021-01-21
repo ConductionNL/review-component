@@ -21,13 +21,12 @@ class LikeRepository extends ServiceEntityRepository
 
     public function calculateLikes($organization, $resource = false)
     {
-
         $query = $this->createQueryBuilder('r')
             ->andWhere('r.organization LIKE :organization')
             ->setParameter('organization', '%'.$organization.'%')
             ->select('COUNT(r.id) as likes');
 
-        if($resource){
+        if ($resource) {
             $query
                 ->andWhere('r.resource LIKE :resource')
                 ->setParameter('resource', '%'.$resource.'%');
@@ -46,7 +45,7 @@ class LikeRepository extends ServiceEntityRepository
                 ->setParameter('resource', $resource)
                 ->select('COUNT(r.id) as likes');
 
-            if($organization){
+            if ($organization) {
                 $query
                     ->andWhere('r.organization = :organization')
                     ->setParameter('organization', $organization);
@@ -54,12 +53,11 @@ class LikeRepository extends ServiceEntityRepository
 
             $likes = $query->getQuery()->getSingleScalarResult();
 
-            if($likes > 0 ) {
+            if ($likes > 0) {
                 return true;
             }
         }
 
         return false;
     }
-
 }

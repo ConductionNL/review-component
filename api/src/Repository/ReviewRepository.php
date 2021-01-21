@@ -26,7 +26,7 @@ class ReviewRepository extends ServiceEntityRepository
             ->setParameter('organization', '%'.$organization.'%')
             ->select('AVG(r.rating) as rating');
 
-        if($resource){
+        if ($resource) {
             $query
                 ->andWhere('r.resource LIKE :resource')
                 ->setParameter('resource', '%'.$resource.'%');
@@ -42,7 +42,7 @@ class ReviewRepository extends ServiceEntityRepository
             ->setParameter('organization', '%'.$organization.'%')
             ->select('COUNT(r.id) as reviews');
 
-        if($resource){
+        if ($resource) {
             $query
                 ->andWhere('r.resource LIKE :resource')
                 ->setParameter('resource', '%'.$resource.'%');
@@ -50,7 +50,6 @@ class ReviewRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getSingleScalarResult();
     }
-
 
     // /**
     //  * @return Review[] Returns an array of Review objects
