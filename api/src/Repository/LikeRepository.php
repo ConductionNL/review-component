@@ -36,8 +36,29 @@ class LikeRepository extends ServiceEntityRepository
         return $query->getQuery()->getSingleScalarResult();
     }
 
-    public function checkLiked($organization, $resource = false, $user = false)
+    public function checkLiked($author, $resource, $organization = false)
     {
+        if ($author and $resource) {
+            $query = $this->createQueryBuilder('r')
+                ->andWhere('r.author = :author')
+                ->setParameter('author', $author)
+                ->andWhere('r.resource = :resource')
+                ->setParameter('resource', $resource)
+                ->select('COUNT(r.id) as likes');
+
+            if($organization){
+                $query
+                    ->andWhere('r.organization = :organization')
+                    ->setParameter('organization', $organization);
+            }
+
+            $likes = $query->getQuery()->getSingleScalarResult();
+
+            if($likes > 0 ) {
+                return true;
+            }
+        }
+
         return false;
     }
 

@@ -7,15 +7,14 @@
 	},
 	"item": [
 		{
-			"name": "aspects",
+			"name": "likes",
 			"item": [
 				{
-					"name": "Retrieves the collection of Aspect resources.",
+					"name": "Retrieves the collection of Like resources.",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "9e2abada-e76b-4e7c-99f5-4fc68bb789cf",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -43,8 +42,1159 @@
 					],
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
 						},
+						"method": "GET",
+						"header": [
+							{
+								"description": "The JWT of the entity performing the request",
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+								"key": "API-Version",
+								"value": ""
+							},
+							{
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+								"key": "X-NLX-Logrecord-ID",
+								"value": ""
+							},
+							{
+								"description": "A process id for purpose registration (doelbinding)",
+								"key": "X-NLX-Request-Process-Id",
+								"value": ""
+							},
+							{
+								"description": "A list of requested data elements",
+								"key": "X-NLX-Request-Data-Elements",
+								"value": ""
+							},
+							{
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+								"key": "X-NLX-Request-Data-Subject",
+								"value": ""
+							},
+							{
+								"description": "A clarification as to why a request has been made  (doelbinding)",
+								"key": "X-NLX-Audit-Clarification",
+								"value": ""
+							},
+							{
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+								"key": "Link",
+								"value": ""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/likes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes"
+							],
+							"query": [
+								{
+									"key": "resource",
+									"value": "https://dev.zuid-drecht.nl/api/v1/mrc/job_postings/db356460-c79b-4f1f-839b-081be6ee0c3c",
+									"disabled": true
+								},
+								{
+									"key": "author",
+									"value": "https://dev.zuid-drecht.nl/api/v1/cc/people/a3d3770d-5dd0-425a-8459-0cada5889d74",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Aspect collection response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									},
+									{
+										"key": "Link",
+										"value": "",
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/aspects?page=1&extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"organization\": \"<string>\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"itemType\": \"<string>\",\n  \"item\": \"<string>\",\n  \"description\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n },\n {\n  \"organization\": \"<string>\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"itemType\": \"<string>\",\n  \"item\": \"<string>\",\n  \"description\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n }\n]"
+						}
+					]
+				},
+				{
+					"name": "Creates a Like resource.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     // pm.response.to.be.created; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Set ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    //var payloadData = JSON.parse(jsonData.Payload); //parsed payload\r",
+									"\r",
+									"    //console.log(payloadData.Id);\r",
+									"\r",
+									"    pm.environment.set(\"like\", jsonData.id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"description": "The JWT of the entity performing the request",
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+								"key": "API-Version",
+								"value": ""
+							},
+							{
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+								"key": "X-NLX-Logrecord-ID",
+								"value": ""
+							},
+							{
+								"description": "A process id for purpose registration (doelbinding)",
+								"key": "X-NLX-Request-Process-Id",
+								"value": ""
+							},
+							{
+								"description": "A list of requested data elements",
+								"key": "X-NLX-Request-Data-Elements",
+								"value": ""
+							},
+							{
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+								"key": "X-NLX-Request-Data-Subject",
+								"value": ""
+							},
+							{
+								"description": "A clarification as to why a request has been made  (doelbinding)",
+								"key": "X-NLX-Audit-Clarification",
+								"value": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resource\": \"https://dev.zuid-drecht.nl/api/v1/mrc/job_postings/376dd1f7-7af1-4903-a90a-163a3dcb89d5\",\r\n    \"organization\": \"https://dev.zuid-drecht.nl/api/v1/wrc/organizations/e6485483-ecf8-4ffa-b5dc-07eba7dd36c5\",\r\n    \"author\": \"https://dev.zuid-drecht.nl/api/v1/cc/people/a3d3770d-5dd0-425a-8459-0cada5889d74\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/likes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/aspects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Aspect resource created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/aspects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"organization\": \"<string>\",\n \"name\": \"<string>\",\n \"id\": \"<string>\",\n \"itemType\": \"<string>\",\n \"item\": \"<string>\",\n \"description\": \"<string>\",\n \"createdAt\": \"<dateTime>\",\n \"updatedAt\": \"<dateTime>\"\n}"
+						},
+						{
+							"name": "Resource not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									},
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									},
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/aspects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "likes/{id}",
+			"item": [
+				{
+					"name": "Retrieves a Like resource.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "The JWT of the entity performing the request"
+							},
+							{
+								"key": "API-Version",
+								"value": "",
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+							},
+							{
+								"key": "X-NLX-Logrecord-ID",
+								"value": "",
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+							},
+							{
+								"key": "X-NLX-Request-Process-Id",
+								"value": "",
+								"description": "A process id for purpose registration (doelbinding)"
+							},
+							{
+								"key": "X-NLX-Request-Data-Elements",
+								"value": "",
+								"description": "A list of requested data elements"
+							},
+							{
+								"key": "X-NLX-Request-Data-Subject",
+								"value": "",
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+							},
+							{
+								"key": "X-NLX-Audit-Clarification",
+								"value": "",
+								"description": "A clarification as to why a request has been made  (doelbinding)"
+							},
+							{
+								"key": "Link",
+								"value": "",
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/likes/{{like}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"{{like}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Resource not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									},
+									{
+										"key": "Link",
+										"value": "",
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\""
+									},
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									},
+									{
+										"key": "Link",
+										"value": "",
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/aspects/:id?extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects",
+										":id"
+									],
+									"query": [
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Aspect resource response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/aspects/:id?extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects",
+										":id"
+									],
+									"query": [
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"organization\": \"<string>\",\n \"name\": \"<string>\",\n \"id\": \"<string>\",\n \"itemType\": \"<string>\",\n \"item\": \"<string>\",\n \"description\": \"<string>\",\n \"createdAt\": \"<dateTime>\",\n \"updatedAt\": \"<dateTime>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Replaces the Like resource.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "The JWT of the entity performing the request"
+							},
+							{
+								"key": "API-Version",
+								"value": "",
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+							},
+							{
+								"key": "X-NLX-Logrecord-ID",
+								"value": "",
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+							},
+							{
+								"key": "X-NLX-Request-Process-Id",
+								"value": "",
+								"description": "A process id for purpose registration (doelbinding)"
+							},
+							{
+								"key": "X-NLX-Request-Data-Elements",
+								"value": "",
+								"description": "A list of requested data elements"
+							},
+							{
+								"key": "X-NLX-Request-Data-Subject",
+								"value": "",
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+							},
+							{
+								"key": "X-NLX-Audit-Clarification",
+								"value": "",
+								"description": "A clarification as to why a request has been made  (doelbinding)"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resource\": \"https://dev.zuid-drecht.nl/api/v1/pdc/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"organization\": \"https://dev.zuid-drecht.nl/api/v1/wrc/organisations/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"author\": \"https://dev.zuid-drecht.nl/api/v1/cc/people/16353702-4614-42ff-92af-7dd11c8eef9f\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/likes/{{like}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"{{like}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/aspects/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Resource not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									},
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									},
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "The JWT of the entity performing the request"
+									},
+									{
+										"key": "API-Version",
+										"value": "",
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
+									},
+									{
+										"key": "X-NLX-Logrecord-ID",
+										"value": "",
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
+									},
+									{
+										"key": "X-NLX-Request-Process-Id",
+										"value": "",
+										"description": "A process id for purpose registration (doelbinding)"
+									},
+									{
+										"key": "X-NLX-Request-Data-Elements",
+										"value": "",
+										"description": "A list of requested data elements"
+									},
+									{
+										"key": "X-NLX-Request-Data-Subject",
+										"value": "",
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
+									},
+									{
+										"key": "X-NLX-Audit-Clarification",
+										"value": "",
+										"description": "A clarification as to why a request has been made  (doelbinding)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/aspects/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Aspect resource updated",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/aspects/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"aspects",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"organization\": \"<string>\",\n \"name\": \"<string>\",\n \"id\": \"<string>\",\n \"itemType\": \"<string>\",\n \"item\": \"<string>\",\n \"description\": \"<string>\",\n \"createdAt\": \"<dateTime>\",\n \"updatedAt\": \"<dateTime>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "aspects",
+			"item": [
+				{
+					"name": "Retrieves the collection of Aspect resources.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
 						"method": "GET",
 						"header": [
 							{
@@ -201,7 +1351,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2bb8087e-e683-497f-953e-ed4e78e59901",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -239,9 +1388,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -286,7 +1432,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"organization\": \"002851234\",\r\n    \"itemType\": \"https://pdc.zaakonline.nl/products/\",\r\n    \"item\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"name\": \"colour\",\r\n    \"description\": \"was the colour of the product  what you expected it to be?\"\r\n}"
+							"raw": "{\r\n    \"organization\": \"https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"itemType\": \"https://pdc.zaakonline.nl/products/\",\r\n    \"item\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"name\": \"colour\",\r\n    \"description\": \"was the colour of the product  what you expected it to be?\"\r\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/aspects",
@@ -500,8 +1646,7 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "aspects/{id}",
@@ -512,7 +1657,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a1e154f3-c4c2-46fd-8509-f0e79904f676",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -539,9 +1683,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -796,7 +1937,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b523079d-1418-4899-bb6e-80d85398a2b9",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -823,9 +1963,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -870,7 +2007,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"organization\": \"002851234\",\r\n    \"itemType\": \"https://pdc.zaakonline.nl/products/\",\r\n    \"item\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"name\": \"colour\",\r\n    \"description\": \"was the colour of the product  what you expected it to be?\"\r\n}"
+							"raw": "{\r\n    \"organization\": \"https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"itemType\": \"https://pdc.zaakonline.nl/products/\",\r\n    \"item\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"name\": \"colour\",\r\n    \"description\": \"was the colour of the product  what you expected it to be?\"\r\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/aspects/{{aspect}}",
@@ -1100,324 +2237,10 @@
 							],
 							"cookie": [],
 							"body": ""
-						}
-					]
-				},
-				{
-					"name": "Updates the Aspect resource.",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "5aa95a47-2e06-4178-a1bc-1e2e96b878d2",
-								"exec": [
-									"// example using pm.response.to.have\r",
-									"pm.test(\"response is ok\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"// example using response assertions\r",
-									"pm.test(\"response should be okay to process\", function () {\r",
-									"    pm.response.to.not.be.error;\r",
-									"    pm.response.to.not.have.jsonBody(\"error\");\r",
-									"});\r",
-									"\r",
-									"// example using pm.response.to.be*\r",
-									"pm.test(\"response must be valid and have a body\", function () {\r",
-									"     // assert that the status code is 200\r",
-									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
-									"     // assert that the response has a valid JSON body\r",
-									"     pm.response.to.be.withBody;\r",
-									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"description": "The JWT of the entity performing the request"
-							},
-							{
-								"key": "API-Version",
-								"value": "",
-								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-							},
-							{
-								"key": "X-NLX-Logrecord-ID",
-								"value": "",
-								"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-							},
-							{
-								"key": "X-NLX-Request-Process-Id",
-								"value": "",
-								"description": "A process id for purpose registration (doelbinding)"
-							},
-							{
-								"key": "X-NLX-Request-Data-Elements",
-								"value": "",
-								"description": "A list of requested data elements"
-							},
-							{
-								"key": "X-NLX-Request-Data-Subject",
-								"value": "",
-								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-							},
-							{
-								"key": "X-NLX-Audit-Clarification",
-								"value": "",
-								"description": "A clarification as to why a request has been made  (doelbinding)"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"organization\": \"002851234\",\r\n    \"itemType\": \"https://pdc.zaakonline.nl/products/\",\r\n    \"item\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"name\": \"colour\",\r\n    \"description\": \"was the colour of the product  what you expected it to be?\"\r\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/aspects/{{aspect}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"aspects",
-								"{{aspect}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Invalid input",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/aspects/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"aspects",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id"
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Resource not found",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "",
-										"description": "The JWT of the entity performing the request"
-									},
-									{
-										"key": "API-Version",
-										"value": "",
-										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-									},
-									{
-										"key": "X-NLX-Logrecord-ID",
-										"value": "",
-										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-									},
-									{
-										"key": "X-NLX-Request-Process-Id",
-										"value": "",
-										"description": "A process id for purpose registration (doelbinding)"
-									},
-									{
-										"key": "X-NLX-Request-Data-Elements",
-										"value": "",
-										"description": "A list of requested data elements"
-									},
-									{
-										"key": "X-NLX-Request-Data-Subject",
-										"value": "",
-										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-									},
-									{
-										"key": "X-NLX-Audit-Clarification",
-										"value": "",
-										"description": "A clarification as to why a request has been made  (doelbinding)"
-									},
-									{
-										"key": "Authorization",
-										"value": "",
-										"description": "The JWT of the entity performing the request"
-									},
-									{
-										"key": "API-Version",
-										"value": "",
-										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-									},
-									{
-										"key": "X-NLX-Logrecord-ID",
-										"value": "",
-										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-									},
-									{
-										"key": "X-NLX-Request-Process-Id",
-										"value": "",
-										"description": "A process id for purpose registration (doelbinding)"
-									},
-									{
-										"key": "X-NLX-Request-Data-Elements",
-										"value": "",
-										"description": "A list of requested data elements"
-									},
-									{
-										"key": "X-NLX-Request-Data-Subject",
-										"value": "",
-										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-									},
-									{
-										"key": "X-NLX-Audit-Clarification",
-										"value": "",
-										"description": "A clarification as to why a request has been made  (doelbinding)"
-									},
-									{
-										"key": "Authorization",
-										"value": "",
-										"description": "The JWT of the entity performing the request"
-									},
-									{
-										"key": "API-Version",
-										"value": "",
-										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-									},
-									{
-										"key": "X-NLX-Logrecord-ID",
-										"value": "",
-										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-									},
-									{
-										"key": "X-NLX-Request-Process-Id",
-										"value": "",
-										"description": "A process id for purpose registration (doelbinding)"
-									},
-									{
-										"key": "X-NLX-Request-Data-Elements",
-										"value": "",
-										"description": "A list of requested data elements"
-									},
-									{
-										"key": "X-NLX-Request-Data-Subject",
-										"value": "",
-										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-									},
-									{
-										"key": "X-NLX-Audit-Clarification",
-										"value": "",
-										"description": "A clarification as to why a request has been made  (doelbinding)"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/aspects/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"aspects",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Aspect resource updated",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/aspects/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"aspects",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/hal+json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"organization\": \"<string>\",\n \"name\": \"<string>\",\n \"id\": \"<string>\",\n \"itemType\": \"<string>\",\n \"item\": \"<string>\",\n \"description\": \"<string>\",\n \"createdAt\": \"<dateTime>\",\n \"updatedAt\": \"<dateTime>\"\n}"
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "reviews",
@@ -1428,7 +2251,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "832cd1cf-41a1-4f19-866f-a78def1baf42",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -1455,9 +2277,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -1650,7 +2469,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f62811c6-f265-494d-bd62-e1251cbddb79",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -1688,9 +2506,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1735,7 +2550,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"organization\": \"002851234\",\r\n    \"itemReviewed\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"author\": \"https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6\",\r\n    \"ratings\":[\r\n    \t{\r\n\t\t    \"ratingValue\": 5,\r\n\t\t    \"ratingExplanation\": \"I really like the color!\",\r\n\t\t    \"reviewAspect\": \"/aspects/{{aspect}}\"\r\n\t\t}\r\n    ]\r\n}"
+							"raw": "{\r\n    \"organization\": \"https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"resource\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"itemReviewed\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"author\": \"https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6\",\r\n    \"review\": \"This is a review\"\r\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/reviews",
@@ -1949,8 +2764,7 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "reviews/{id}",
@@ -1961,7 +2775,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "20505f22-0853-4f29-9085-b47e6877d826",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -1988,9 +2801,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -2245,7 +3055,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ae69b8e3-09ec-464c-9477-a37a6254defb",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -2272,9 +3081,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -2319,7 +3125,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"organization\": \"002851234\",\r\n    \"itemReviewed\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"author\": \"https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6\"\r\n}"
+							"raw": "{\r\n    \"organization\": \"https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"resource\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"itemReviewed\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"author\": \"https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6\",\r\n    \"review\": \"This is a review\"\r\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/reviews/{{review}}",
@@ -2517,319 +3323,6 @@
 							"name": "Invalid input",
 							"originalRequest": {
 								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"organization\": \"<string>\",\n    \"itemReviewed\": \"<string>\",\n    \"author\": \"<string>\",\n    \"ratings\": [\n        {\n            \"ratingValue\": \"<integer>\",\n            \"ratingExplanation\": \"<string>\",\n            \"reviewAspect\": {\n                \"organization\": \"<string>\",\n                \"name\": \"<string>\",\n                \"itemType\": \"<string>\",\n                \"item\": \"<string>\",\n                \"description\": \"<string>\"\n            }\n        },\n        {\n            \"ratingValue\": \"<integer>\",\n            \"ratingExplanation\": \"<string>\",\n            \"reviewAspect\": {\n                \"organization\": \"<string>\",\n                \"name\": \"<string>\",\n                \"itemType\": \"<string>\",\n                \"item\": \"<string>\",\n                \"description\": \"<string>\"\n            }\n        }\n    ]\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/reviews/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"reviews",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id"
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
-				},
-				{
-					"name": "Updates the Review resource.",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "aa28ee85-63da-4c89-b1c1-d7d0ffaacda8",
-								"exec": [
-									"// example using pm.response.to.have\r",
-									"pm.test(\"response is ok\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"// example using response assertions\r",
-									"pm.test(\"response should be okay to process\", function () {\r",
-									"    pm.response.to.not.be.error;\r",
-									"    pm.response.to.not.have.jsonBody(\"error\");\r",
-									"});\r",
-									"\r",
-									"// example using pm.response.to.be*\r",
-									"pm.test(\"response must be valid and have a body\", function () {\r",
-									"     // assert that the status code is 200\r",
-									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
-									"     // assert that the response has a valid JSON body\r",
-									"     pm.response.to.be.withBody;\r",
-									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"description": "The JWT of the entity performing the request"
-							},
-							{
-								"key": "API-Version",
-								"value": "",
-								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-							},
-							{
-								"key": "X-NLX-Logrecord-ID",
-								"value": "",
-								"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-							},
-							{
-								"key": "X-NLX-Request-Process-Id",
-								"value": "",
-								"description": "A process id for purpose registration (doelbinding)"
-							},
-							{
-								"key": "X-NLX-Request-Data-Elements",
-								"value": "",
-								"description": "A list of requested data elements"
-							},
-							{
-								"key": "X-NLX-Request-Data-Subject",
-								"value": "",
-								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-							},
-							{
-								"key": "X-NLX-Audit-Clarification",
-								"value": "",
-								"description": "A clarification as to why a request has been made  (doelbinding)"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"organization\": \"002851234\",\r\n    \"itemReviewed\": \"https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f\",\r\n    \"author\": \"https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6\"\r\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/reviews/{{review}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"reviews",
-								"{{review}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Resource not found",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "",
-										"description": "The JWT of the entity performing the request"
-									},
-									{
-										"key": "API-Version",
-										"value": "",
-										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-									},
-									{
-										"key": "X-NLX-Logrecord-ID",
-										"value": "",
-										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-									},
-									{
-										"key": "X-NLX-Request-Process-Id",
-										"value": "",
-										"description": "A process id for purpose registration (doelbinding)"
-									},
-									{
-										"key": "X-NLX-Request-Data-Elements",
-										"value": "",
-										"description": "A list of requested data elements"
-									},
-									{
-										"key": "X-NLX-Request-Data-Subject",
-										"value": "",
-										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-									},
-									{
-										"key": "X-NLX-Audit-Clarification",
-										"value": "",
-										"description": "A clarification as to why a request has been made  (doelbinding)"
-									},
-									{
-										"key": "Authorization",
-										"value": "",
-										"description": "The JWT of the entity performing the request"
-									},
-									{
-										"key": "API-Version",
-										"value": "",
-										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-									},
-									{
-										"key": "X-NLX-Logrecord-ID",
-										"value": "",
-										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-									},
-									{
-										"key": "X-NLX-Request-Process-Id",
-										"value": "",
-										"description": "A process id for purpose registration (doelbinding)"
-									},
-									{
-										"key": "X-NLX-Request-Data-Elements",
-										"value": "",
-										"description": "A list of requested data elements"
-									},
-									{
-										"key": "X-NLX-Request-Data-Subject",
-										"value": "",
-										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-									},
-									{
-										"key": "X-NLX-Audit-Clarification",
-										"value": "",
-										"description": "A clarification as to why a request has been made  (doelbinding)"
-									},
-									{
-										"key": "Authorization",
-										"value": "",
-										"description": "The JWT of the entity performing the request"
-									},
-									{
-										"key": "API-Version",
-										"value": "",
-										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-									},
-									{
-										"key": "X-NLX-Logrecord-ID",
-										"value": "",
-										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-									},
-									{
-										"key": "X-NLX-Request-Process-Id",
-										"value": "",
-										"description": "A process id for purpose registration (doelbinding)"
-									},
-									{
-										"key": "X-NLX-Request-Data-Elements",
-										"value": "",
-										"description": "A list of requested data elements"
-									},
-									{
-										"key": "X-NLX-Request-Data-Subject",
-										"value": "",
-										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-									},
-									{
-										"key": "X-NLX-Audit-Clarification",
-										"value": "",
-										"description": "A clarification as to why a request has been made  (doelbinding)"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"organization\": \"<string>\",\n    \"itemReviewed\": \"<string>\",\n    \"author\": \"<string>\",\n    \"ratings\": [\n        {\n            \"ratingValue\": \"<integer>\",\n            \"ratingExplanation\": \"<string>\",\n            \"reviewAspect\": {\n                \"organization\": \"<string>\",\n                \"name\": \"<string>\",\n                \"itemType\": \"<string>\",\n                \"item\": \"<string>\",\n                \"description\": \"<string>\"\n            }\n        },\n        {\n            \"ratingValue\": \"<integer>\",\n            \"ratingExplanation\": \"<string>\",\n            \"reviewAspect\": {\n                \"organization\": \"<string>\",\n                \"name\": \"<string>\",\n                \"itemType\": \"<string>\",\n                \"item\": \"<string>\",\n                \"description\": \"<string>\"\n            }\n        }\n    ]\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/reviews/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"reviews",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Review resource updated",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"organization\": \"<string>\",\n    \"itemReviewed\": \"<string>\",\n    \"author\": \"<string>\",\n    \"ratings\": [\n        {\n            \"ratingValue\": \"<integer>\",\n            \"ratingExplanation\": \"<string>\",\n            \"reviewAspect\": {\n                \"organization\": \"<string>\",\n                \"name\": \"<string>\",\n                \"itemType\": \"<string>\",\n                \"item\": \"<string>\",\n                \"description\": \"<string>\"\n            }\n        },\n        {\n            \"ratingValue\": \"<integer>\",\n            \"ratingExplanation\": \"<string>\",\n            \"reviewAspect\": {\n                \"organization\": \"<string>\",\n                \"name\": \"<string>\",\n                \"itemType\": \"<string>\",\n                \"item\": \"<string>\",\n                \"description\": \"<string>\"\n            }\n        }\n    ]\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/reviews/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"reviews",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/hal+json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"organization\": \"<string>\",\n \"id\": \"<string>\",\n \"itemReviewed\": \"<string>\",\n \"author\": \"<string>\",\n \"ratings\": [\n  {\n   \"ratingValue\": \"<integer>\",\n   \"id\": \"<string>\",\n   \"author\": \"<string>\",\n   \"bestRating\": \"<integer>\",\n   \"worstRating\": \"<integer>\",\n   \"ratingExplanation\": \"<string>\",\n   \"reviewAspect\": {\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n   },\n   \"createdAt\": \"<dateTime>\",\n   \"updatedAt\": \"<dateTime>\"\n  },\n  {\n   \"ratingValue\": \"<integer>\",\n   \"id\": \"<string>\",\n   \"author\": \"<string>\",\n   \"bestRating\": \"<integer>\",\n   \"worstRating\": \"<integer>\",\n   \"ratingExplanation\": \"<string>\",\n   \"reviewAspect\": {\n    \"organization\": \"<string>\",\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"itemType\": \"<string>\",\n    \"item\": \"<string>\",\n    \"description\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n   },\n   \"createdAt\": \"<dateTime>\",\n   \"updatedAt\": \"<dateTime>\"\n  }\n ],\n \"aggregateRating\": \"<number>\",\n \"createdAt\": \"<dateTime>\",\n \"updatedAt\": \"<dateTime>\"\n}"
-						},
-						{
-							"name": "Invalid input",
-							"originalRequest": {
-								"method": "PATCH",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -2865,8 +3358,7 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "ratings",
@@ -2877,7 +3369,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "20836719-dc7c-4530-a793-f898f402fdf2",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -2904,9 +3395,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -3079,7 +3567,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7c3d123f-d623-47c1-8cb3-d5d99d486eae",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -3117,9 +3604,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -3378,8 +3862,7 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "ratings/{id}",
@@ -3390,7 +3873,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6f3dcee2-e5e2-4a36-a0c3-9a4bf3974e43",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -3417,9 +3899,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -3674,7 +4153,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0eecfdf3-22f8-475f-b3bd-785bfb7bf920",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -3701,9 +4179,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -3748,7 +4223,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ratingValue\": 5,\r\n    \"ratingExplanation\": \"I really like the color!\",\r\n    \"reviewAspect\": \"/aspects/{{aspect}}\"\r\n}"
+							"raw": "{\r\n    \"review\": \"/reviews/{{review}}\",\r\n    \"ratingValue\": 5,\r\n    \"ratingExplanation\": \"I really like the color!\",\r\n    \"reviewAspect\": \"/aspects/{{aspect}}\"\r\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/ratings/{{rating}}",
@@ -3980,14 +4455,18 @@
 							"body": ""
 						}
 					]
-				},
+				}
+			]
+		},
+		{
+			"name": "totals",
+			"item": [
 				{
-					"name": "Updates the Rating resource.",
+					"name": "Retrieves the totals.",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "d4aa1418-79ee-4375-b7c2-736ad8e7a80b",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -3998,15 +4477,6 @@
 									"pm.test(\"response should be okay to process\", function () {\r",
 									"    pm.response.to.not.be.error;\r",
 									"    pm.response.to.not.have.jsonBody(\"error\");\r",
-									"});\r",
-									"\r",
-									"// example using pm.response.to.be*\r",
-									"pm.test(\"response must be valid and have a body\", function () {\r",
-									"     // assert that the status code is 200\r",
-									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
-									"     // assert that the response has a valid JSON body\r",
-									"     pm.response.to.be.withBody;\r",
-									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -4015,9 +4485,21 @@
 					],
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
 						},
-						"method": "PATCH",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
@@ -4055,67 +4537,43 @@
 								"description": "A clarification as to why a request has been made  (doelbinding)"
 							},
 							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json"
+								"key": "Link",
+								"value": "",
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\""
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"ratingValue\": 5,\r\n    \"ratingExplanation\": \"I really like the color!\",\r\n    \"reviewAspect\": \"/aspects/{{aspect}}\"\r\n}"
-						},
 						"url": {
-							"raw": "{{baseUrl}}/ratings/{{rating}}",
+							"raw": "{{baseUrl}}/totals",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"ratings",
-								"{{rating}}"
+								"totals"
+							],
+							"query": [
+								{
+									"key": "resource",
+									"value": "https://dev.larping.eu/api/v1/arc/events/ae31eadb-0635-4190-b1c0-ac783afbc25c",
+									"disabled": true
+								},
+								{
+									"key": "author",
+									"value": "https://dev.larping.eu/api/v1/cc/people/a1f7c980-7914-4507-8d49-fb5263c20b92",
+									"disabled": true
+								},
+								{
+									"key": "organization",
+									"value": "https://dev.zuid-drecht.nl/api/v1/wrc/organizations/e6485483-ecf8-4ffa-b5dc-07eba7dd36c5",
+									"disabled": true
+								}
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Invalid input",
+							"name": "Rating collection response",
 							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"ratingValue\": \"<integer>\",\n    \"ratingExplanation\": \"<string>\",\n    \"reviewAspect\": {\n        \"organization\": \"<string>\",\n        \"name\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"item\": \"<string>\",\n        \"description\": \"<string>\"\n    }\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/ratings/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"ratings",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id"
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Resource not found",
-							"originalRequest": {
-								"method": "PATCH",
+								"method": "GET",
 								"header": [
 									{
 										"key": "Authorization",
@@ -4153,129 +4611,59 @@
 										"description": "A clarification as to why a request has been made  (doelbinding)"
 									},
 									{
-										"key": "Authorization",
+										"key": "Link",
 										"value": "",
-										"description": "The JWT of the entity performing the request"
-									},
-									{
-										"key": "API-Version",
-										"value": "",
-										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-									},
-									{
-										"key": "X-NLX-Logrecord-ID",
-										"value": "",
-										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-									},
-									{
-										"key": "X-NLX-Request-Process-Id",
-										"value": "",
-										"description": "A process id for purpose registration (doelbinding)"
-									},
-									{
-										"key": "X-NLX-Request-Data-Elements",
-										"value": "",
-										"description": "A list of requested data elements"
-									},
-									{
-										"key": "X-NLX-Request-Data-Subject",
-										"value": "",
-										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-									},
-									{
-										"key": "X-NLX-Audit-Clarification",
-										"value": "",
-										"description": "A clarification as to why a request has been made  (doelbinding)"
-									},
-									{
-										"key": "Authorization",
-										"value": "",
-										"description": "The JWT of the entity performing the request"
-									},
-									{
-										"key": "API-Version",
-										"value": "",
-										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)"
-									},
-									{
-										"key": "X-NLX-Logrecord-ID",
-										"value": "",
-										"description": "A  globally unique id of the request, which makes a request traceable throughout the network."
-									},
-									{
-										"key": "X-NLX-Request-Process-Id",
-										"value": "",
-										"description": "A process id for purpose registration (doelbinding)"
-									},
-									{
-										"key": "X-NLX-Request-Data-Elements",
-										"value": "",
-										"description": "A list of requested data elements"
-									},
-									{
-										"key": "X-NLX-Request-Data-Subject",
-										"value": "",
-										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`"
-									},
-									{
-										"key": "X-NLX-Audit-Clarification",
-										"value": "",
-										"description": "A clarification as to why a request has been made  (doelbinding)"
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\""
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"ratingValue\": \"<integer>\",\n    \"ratingExplanation\": \"<string>\",\n    \"reviewAspect\": {\n        \"organization\": \"<string>\",\n        \"name\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"item\": \"<string>\",\n        \"description\": \"<string>\"\n    }\n}"
-								},
 								"url": {
-									"raw": "{{baseUrl}}/ratings/:id",
+									"raw": "{{baseUrl}}/ratings?order[id]=<string>&review.id=<string>&review.id[]=<string>&review.id[]=<string>&page=1&extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"ratings",
-										":id"
+										"ratings"
 									],
-									"variable": [
+									"query": [
 										{
-											"key": "id"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Rating resource updated",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"ratingValue\": \"<integer>\",\n    \"ratingExplanation\": \"<string>\",\n    \"reviewAspect\": {\n        \"organization\": \"<string>\",\n        \"name\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"item\": \"<string>\",\n        \"description\": \"<string>\"\n    }\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/ratings/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"ratings",
-										":id"
-									],
-									"variable": [
+											"key": "order[id]",
+											"value": "<string>"
+										},
 										{
-											"key": "id"
+											"key": "review.id",
+											"value": "<string>"
+										},
+										{
+											"key": "review.id[]",
+											"value": "<string>"
+										},
+										{
+											"key": "review.id[]",
+											"value": "<string>"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
 										}
 									]
 								}
@@ -4290,12 +4678,11 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n \"ratingValue\": \"<integer>\",\n \"id\": \"<string>\",\n \"author\": \"<string>\",\n \"bestRating\": \"<integer>\",\n \"worstRating\": \"<integer>\",\n \"ratingExplanation\": \"<string>\",\n \"reviewAspect\": {\n  \"organization\": \"<string>\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"itemType\": \"<string>\",\n  \"item\": \"<string>\",\n  \"description\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n },\n \"createdAt\": \"<dateTime>\",\n \"updatedAt\": \"<dateTime>\"\n}"
+							"body": "[\n {\n  \"ratingValue\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"author\": \"<string>\",\n  \"bestRating\": \"<integer>\",\n  \"worstRating\": \"<integer>\",\n  \"ratingExplanation\": \"<string>\",\n  \"reviewAspect\": {\n   \"organization\": \"<string>\",\n   \"name\": \"<string>\",\n   \"id\": \"<string>\",\n   \"itemType\": \"<string>\",\n   \"item\": \"<string>\",\n   \"description\": \"<string>\",\n   \"createdAt\": \"<dateTime>\",\n   \"updatedAt\": \"<dateTime>\"\n  },\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n },\n {\n  \"ratingValue\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"author\": \"<string>\",\n  \"bestRating\": \"<integer>\",\n  \"worstRating\": \"<integer>\",\n  \"ratingExplanation\": \"<string>\",\n  \"reviewAspect\": {\n   \"organization\": \"<string>\",\n   \"name\": \"<string>\",\n   \"id\": \"<string>\",\n   \"itemType\": \"<string>\",\n   \"item\": \"<string>\",\n   \"description\": \"<string>\",\n   \"createdAt\": \"<dateTime>\",\n   \"updatedAt\": \"<dateTime>\"\n  },\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n }\n]"
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "cleanup",
@@ -4306,7 +4693,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2623e12c-f17c-4c50-acbf-dfb1fdba56c3",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -4319,9 +4705,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -4517,7 +4900,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0e25c70a-ad51-4682-bb47-e9a6f1b9023d",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -4530,9 +4912,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -4728,7 +5107,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0e182837-4f33-4b7a-ba57-4233c2e3d9c8",
 								"exec": [
 									"// example using pm.response.to.have\r",
 									"pm.test(\"response is ok\", function () {\r",
@@ -4741,9 +5119,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -4933,15 +5308,28 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{authorization}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "c9a559cb-dc6e-4fc0-a3f2-5ae9b0cecc30",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4951,7 +5339,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "d81a54f5-8bc0-40f3-ba3f-6384f9dc8575",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4961,11 +5348,12 @@
 	],
 	"variable": [
 		{
-			"id": "2a0d5bea-4914-429e-812a-f1cbe9fc6bcb",
 			"key": "baseUrl",
-			"value": "localhost:8080",
-			"type": "string"
+			"value": "localhost"
+		},
+		{
+			"key": "authorization",
+			"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
