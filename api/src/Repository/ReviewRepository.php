@@ -23,13 +23,13 @@ class ReviewRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('r')
             ->andWhere('r.organization LIKE :organization')
-            ->setParameter('organization', $organization)
+            ->setParameter('organization', '%'.$organization.'%')
             ->select('AVG(r.rating) as rating');
 
-        if($resource){
+        if ($resource) {
             $query
                 ->andWhere('r.resource LIKE :resource')
-                ->setParameter('resource', $resource);
+                ->setParameter('resource', '%'.$resource.'%');
         }
 
         return $query->getQuery()->getSingleScalarResult();
@@ -39,18 +39,17 @@ class ReviewRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('r')
             ->andWhere('r.organization LIKE :organization')
-            ->setParameter('organization', $organization)
+            ->setParameter('organization', '%'.$organization.'%')
             ->select('COUNT(r.id) as reviews');
 
-        if($resource){
+        if ($resource) {
             $query
                 ->andWhere('r.resource LIKE :resource')
-                ->setParameter('resource', $resource);
+                ->setParameter('resource', '%'.$resource.'%');
         }
 
         return $query->getQuery()->getSingleScalarResult();
     }
-
 
     // /**
     //  * @return Review[] Returns an array of Review objects

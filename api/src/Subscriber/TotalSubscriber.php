@@ -3,14 +3,12 @@
 namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
-use App\Entity\Total;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class TotalSubscriber implements EventSubscriberInterface
 {
@@ -42,7 +40,7 @@ class TotalSubscriber implements EventSubscriberInterface
     public function calculateTotal(ViewEvent $event)
     {
         $total = $event->getControllerResult();
-        $user = $event->getRequest()->get('user', false);
+        $author = $event->getRequest()->get('author', false);
         $organization = $event->getRequest()->get('organization', false);
         $resource = $event->getRequest()->get('resource', false);
         $route = $event->getRequest()->attributes->get('_route');
@@ -52,14 +50,14 @@ class TotalSubscriber implements EventSubscriberInterface
         }
 
         // api_totals_get_collection
-        if ($route != "api_totals_get_collection") {
+        if ($route != 'api_totals_get_collection') {
             return;
         }
 
-        $rating = $this->em->getRepository("App\Entity\Review")->calculateRating($organization,$resource);
-        $reviews = $this->em->getRepository("App\Entity\Review")->calculateReviews($organization,$resource);
-        $likes = $this->em->getRepository("App\Entity\Like")->calculateLikes($organization,$resource);
-        $liked = $this->em->getRepository("App\Entity\Like")-checkLiked($organization,$resource);
+        $rating = $this->em->getRepository("App\Entity\Review")->calculateRating($organization, $resource);
+        $reviews = $this->em->getRepository("App\Entity\Review")->calculateReviews($organization, $resource);
+        $likes = $this->em->getRepository("App\Entity\Like")->calculateLikes($organization, $resource);
+        $liked = $this->em->getRepository("App\Entity\Like")->checkLiked($author, $resource, $organization);
 
         switch ($contentType) {
             case 'application/json':
@@ -78,12 +76,12 @@ class TotalSubscriber implements EventSubscriberInterface
 
         $total = [
             'organization'    => $organization,
-            'resource'   => $resource,
-            'user'   => $user,
-            'reviews' => $reviews,
-            'likes'     => $likes,
-            'liked'     => $liked,
-            'rating'    => $rating,
+            'resource'        => $resource,
+            'author'          => $author,
+            'reviews'         => $reviews,
+            'likes'           => $likes,
+            'liked'           => $liked,
+            'rating'          => $rating,
         ];
 
         $response = $this->serializer->serialize(
@@ -102,5 +100,4 @@ class TotalSubscriber implements EventSubscriberInterface
 
         return $event;
     }
-
 }

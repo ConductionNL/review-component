@@ -2,20 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * The review stats for a resource
+ * The review stats for a resource.
  *
  *  * @ApiResource(
  *     normalizationContext={"groups"={"read"}},
@@ -66,7 +60,7 @@ class Total
     private $rating;
 
     /**
-     * @var integer The total amount of likes.
+     * @var int The total amount of likes.
      *
      * @example 1000
      *
@@ -75,7 +69,7 @@ class Total
     private $likes;
 
     /**
-     * @var integer The total amount of revieuws
+     * @var int The total amount of revieuws
      *
      * @example 5
      *
@@ -147,6 +141,4 @@ class Total
 
         return $this;
     }
-
-
 }
