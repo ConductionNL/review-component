@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Review|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +17,38 @@ class ReviewRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Review::class);
+    }
+
+    public function calculateRating($organization, $resource = false)
+    {
+        $query = $this->createQueryBuilder('r')
+            ->andWhere('r.organization LIKE :organization')
+            ->setParameter('organization', '%'.$organization.'%')
+            ->select('AVG(r.rating) as rating');
+
+        if ($resource) {
+            $query
+                ->andWhere('r.resource LIKE :resource')
+                ->setParameter('resource', '%'.$resource.'%');
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
+    public function calculateReviews($organization, $resource = false)
+    {
+        $query = $this->createQueryBuilder('r')
+            ->andWhere('r.organization LIKE :organization')
+            ->setParameter('organization', '%'.$organization.'%')
+            ->select('COUNT(r.id) as reviews');
+
+        if ($resource) {
+            $query
+                ->andWhere('r.resource LIKE :resource')
+                ->setParameter('resource', '%'.$resource.'%');
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     // /**

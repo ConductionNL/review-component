@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Like;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Like|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +19,45 @@ class LikeRepository extends ServiceEntityRepository
         parent::__construct($registry, Like::class);
     }
 
-    // /**
-    //  * @return Like[] Returns an array of Like objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function calculateLikes($organization, $resource = false)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this->createQueryBuilder('r')
+            ->andWhere('r.organization LIKE :organization')
+            ->setParameter('organization', '%'.$organization.'%')
+            ->select('COUNT(r.id) as likes');
 
-    /*
-    public function findOneBySomeField($value): ?Like
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if ($resource) {
+            $query
+                ->andWhere('r.resource LIKE :resource')
+                ->setParameter('resource', '%'.$resource.'%');
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
     }
-    */
+
+    public function checkLiked($author, $resource, $organization = false)
+    {
+        if ($author and $resource) {
+            $query = $this->createQueryBuilder('r')
+                ->andWhere('r.author = :author')
+                ->setParameter('author', $author)
+                ->andWhere('r.resource = :resource')
+                ->setParameter('resource', $resource)
+                ->select('COUNT(r.id) as likes');
+
+            if ($organization) {
+                $query
+                    ->andWhere('r.organization = :organization')
+                    ->setParameter('organization', $organization);
+            }
+
+            $likes = $query->getQuery()->getSingleScalarResult();
+
+            if ($likes > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
