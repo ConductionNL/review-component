@@ -1,18 +1,18 @@
 openapi: 3.0.2
 info:
-  title: 'Review Component'
+  title: ''
   version: V1.0
   description: |
     API Details
-    - Component: Review Component
-    - Reference: rc
+    - Component: 
+    - Reference: review-component
     - Enviroment: dev
     - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/review-component) / [zip](https://github.com/ConductionNL/review-component/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/rc-php) 
-    - Datamodel: [postman](/schema/rc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+    - Docker Image: [online]() 
+    - Datamodel: [postman](/schema/review-component.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    &#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;         
     
 paths:
   /aspects:
@@ -7870,7 +7870,7 @@ components:
         - resource
     Total-read:
       type: object
-      description: 'The review stats for a resource'
+      description: 'The review stats for a resource.'
       properties:
         id:
           readOnly: true
@@ -7903,7 +7903,7 @@ components:
         - resource
     Total-write:
       type: object
-      description: 'The review stats for a resource'
+      description: 'The review stats for a resource.'
       required:
         - organization
         - resource
@@ -7920,7 +7920,7 @@ components:
           type: string
     'Total:jsonld-read':
       type: object
-      description: 'The review stats for a resource'
+      description: 'The review stats for a resource.'
       properties:
         '@context':
           readOnly: true
@@ -7962,7 +7962,7 @@ components:
         - resource
     'Total:jsonld-write':
       type: object
-      description: 'The review stats for a resource'
+      description: 'The review stats for a resource.'
       required:
         - organization
         - resource
@@ -7987,81 +7987,77 @@ components:
             url: 'http://schema.org/url'
           type: string
 definitions:
-  Aspect-read:
+  Review-read:
     properties:
       id:
         description: 'The UUID identifier of this resource'
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
+      review:
+        description: 'The review as string'
+        type: string
+        example: 'Best drink ever!'
       organization:
         description: 'A specific commonground organisation that is being reviewd, e.g a single product'
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-      itemType:
-        description: 'The type of item that this aspect belongs to, e.g a product'
-        type: string
-        example: 'https://pdc.zaakonline.nl/products/'
-        format: url
-        maxLength: 255
-      item:
-        description: 'A specific that this aspect belongs to, e.g a single  product'
+      resource:
+        description: 'A specific commonground resource that is being reviewd, e.g a single product'
         type: string
         example: 'https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-        maxLength: 255
-      name:
-        description: 'The name of this review aspect'
+      author:
+        description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
         type: string
-        example: colour
+        example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
+        format: url
         maxLength: 255
-      description:
-        description: 'The description of this review aspect'
-        type: string
-        example: 'was the colour of the product  what you expected it to be?'
-        maxLength: 2255
+      rating:
+        description: 'A rating for this specific review'
+        type: int
+        example: '5'
       dateCreated:
         description: 'The moment this request was created'
         type: \Datetime
       dateModified:
         description: 'The moment this request last Modified'
         type: \Datetime
+      ratings: []
     required:
       - organization
-      - name
-  Aspect-write:
+      - resource
+  Review-write:
     properties:
+      review:
+        description: 'The review as string'
+        type: string
+        example: 'Best drink ever!'
       organization:
         description: 'A specific commonground organisation that is being reviewd, e.g a single product'
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-      itemType:
-        description: 'The type of item that this aspect belongs to, e.g a product'
-        type: string
-        example: 'https://pdc.zaakonline.nl/products/'
-        format: url
-        maxLength: 255
-      item:
-        description: 'A specific that this aspect belongs to, e.g a single  product'
+      resource:
+        description: 'A specific commonground resource that is being reviewd, e.g a single product'
         type: string
         example: 'https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-        maxLength: 255
-      name:
-        description: 'The name of this review aspect'
+      author:
+        description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
         type: string
-        example: colour
+        example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
+        format: url
         maxLength: 255
-      description:
-        description: 'The description of this review aspect'
-        type: string
-        example: 'was the colour of the product  what you expected it to be?'
-        maxLength: 2255
+      rating:
+        description: 'A rating for this specific review'
+        type: int
+        example: '5'
+      ratings: []
     required:
       - organization
-      - name
+      - resource
   Rating-read:
     properties:
       id:
@@ -8164,77 +8160,81 @@ definitions:
       - organization
       - resource
       - author
-  Review-read:
+  Aspect-read:
     properties:
       id:
         description: 'The UUID identifier of this resource'
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
-      review:
-        description: 'The review as string'
-        type: string
-        example: 'Best drink ever!'
       organization:
         description: 'A specific commonground organisation that is being reviewd, e.g a single product'
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-      resource:
-        description: 'A specific commonground resource that is being reviewd, e.g a single product'
+      itemType:
+        description: 'The type of item that this aspect belongs to, e.g a product'
+        type: string
+        example: 'https://pdc.zaakonline.nl/products/'
+        format: url
+        maxLength: 255
+      item:
+        description: 'A specific that this aspect belongs to, e.g a single  product'
         type: string
         example: 'https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-      author:
-        description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
-        type: string
-        example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
-        format: url
         maxLength: 255
-      rating:
-        description: 'A rating for this specific review'
-        type: int
-        example: '5'
+      name:
+        description: 'The name of this review aspect'
+        type: string
+        example: colour
+        maxLength: 255
+      description:
+        description: 'The description of this review aspect'
+        type: string
+        example: 'was the colour of the product  what you expected it to be?'
+        maxLength: 2255
       dateCreated:
         description: 'The moment this request was created'
         type: \Datetime
       dateModified:
         description: 'The moment this request last Modified'
         type: \Datetime
-      ratings: []
     required:
       - organization
-      - resource
-  Review-write:
+      - name
+  Aspect-write:
     properties:
-      review:
-        description: 'The review as string'
-        type: string
-        example: 'Best drink ever!'
       organization:
         description: 'A specific commonground organisation that is being reviewd, e.g a single product'
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-      resource:
-        description: 'A specific commonground resource that is being reviewd, e.g a single product'
+      itemType:
+        description: 'The type of item that this aspect belongs to, e.g a product'
+        type: string
+        example: 'https://pdc.zaakonline.nl/products/'
+        format: url
+        maxLength: 255
+      item:
+        description: 'A specific that this aspect belongs to, e.g a single  product'
         type: string
         example: 'https://pdc.zaakonline.nl/products/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-      author:
-        description: 'A person or organisation from contacs component that posted this review (the desicion wheter or not this is gotten from an logedin user is up to bussness logic). Can be left empty for an annonamous review'
-        type: string
-        example: 'https://cc.zaakonline.nl/people/001a40e2-4662-4838-b774-3de874607bb6'
-        format: url
         maxLength: 255
-      rating:
-        description: 'A rating for this specific review'
-        type: int
-        example: '5'
-      ratings: []
+      name:
+        description: 'The name of this review aspect'
+        type: string
+        example: colour
+        maxLength: 255
+      description:
+        description: 'The description of this review aspect'
+        type: string
+        example: 'was the colour of the product  what you expected it to be?'
+        maxLength: 2255
     required:
       - organization
-      - resource
+      - name
   ChangeLog-read:
     properties:
       id:
@@ -8273,12 +8273,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-01-21 10:00:52'
+        example: '2021-03-12 13:02:01'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-01-21 10:00:52'
+        example: '2021-03-12 13:02:01'
     required: []
   ChangeLog-write:
     properties:
@@ -8392,12 +8392,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-01-21 10:00:52'
+        example: '2021-03-12 13:02:01'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-01-21 10:00:52'
+        example: '2021-03-12 13:02:01'
     required: []
   AuditTrail-write:
     properties:
@@ -8409,9 +8409,9 @@ definitions:
     required: []
 tags:
   -
-    name: Aspect
+    name: Review
     description: |
-      A aspect that can be rated, e.g. the color of a product or appearence of a location.
+      A review of an item - for example, of a restaurant, movie, or store.
       
       
   -
@@ -8427,9 +8427,9 @@ tags:
       
       
   -
-    name: Review
+    name: Aspect
     description: |
-      A review of an item - for example, of a restaurant, movie, or store.
+      A aspect that can be rated, e.g. the color of a product or appearence of a location.
       
       
   -
@@ -8463,7 +8463,7 @@ host: irc.zaakonline.nl
 servers:
   -
     name: conduction.nl
-    url: rc.dev.conduction.nl
+    url: review-component.dev.conduction.nl
 externalDocs:
   -
     description: 'OAS Documentatie'
