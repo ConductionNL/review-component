@@ -3,16 +3,16 @@ entries:
   postgresql:
   - annotations:
       category: Database
-    apiVersion: v1
+    apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-03-12T13:01:56.1645028Z"
+    created: "2021-08-17T12:16:52.2690068Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
-      version: 0.x.x
+      version: 1.x.x
     description: Chart for PostgreSQL, an object-relational database management system
       (ORDBMS) with an emphasis on extensibility and on standards-compliance.
-    digest: 090f315d5008ff43544fd8a13c19f4ccda8fcf1c2921a6d80bef1d688ae92699
+    digest: eebe8f456cf98d5927a35666d1d899174dc4d3e09f26788033f761527bc90749
     home: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
     icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-110x117.png
     keywords:
@@ -32,15 +32,93 @@ entries:
     - https://github.com/bitnami/bitnami-docker-postgresql
     - https://www.postgresql.org/
     urls:
-    - charts/postgresql-9.8.12.tgz
-    version: 9.8.12
+    - charts/postgresql-10.1.1.tgz
+    version: 10.1.1
+  redis:
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 6.0.11
+    created: "2021-08-17T12:16:52.2726766Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: Open source, advanced key-value store. It is often referred to as
+      a data structure server since keys can contain strings, hashes, lists, sets
+      and sorted sets.
+    digest: 2d70861d16fc410ed6d6c818b97f7b0d519031147e5c7b42c5691d4c38742c44
+    home: https://github.com/bitnami/charts/tree/master/bitnami/redis
+    icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+    keywords:
+    - redis
+    - keyvalue
+    - database
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    - email: cedric@desaintmartin.fr
+      name: desaintmartin
+    name: redis
+    sources:
+    - https://github.com/bitnami/bitnami-docker-redis
+    - http://redis.io/
+    urls:
+    - charts/redis-12.7.7.tgz
+    version: 12.7.7
   review-component:
+  - annotations:
+      artifacthub.io/containsSecurityUpdates: "true"
+    apiVersion: v2
+    appVersion: V1.0
+    created: "2021-08-17T12:16:52.2654978Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.1.1
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.7.7
+    description: Het Review Component faciliteert reviews van resources, hoewel we
+      hierbij in eerste instantie denken aan producten vanuit het PDC zou een resource
+      in feite alles kunnen zijn. Onder een review verstaan we een gebruikerservaring,
+      deze ervaring kan zowel worden aangeduid met een cijfer als een een textuele
+      beschrijving. Additioneel biedt het component ondersteuning voor “likes” en
+      het berekenen van totale gemiddelde review resultaten op resources.
+    digest: 25845e68a397c9e7d8196eb70b87bed4ba5b6a66f868e11ac21fbf06944e97e8
+    home: https://www.conduction.nl
+    icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
+    keywords:
+    - commonground
+    - haven
+    - nlx
+    - component
+    maintainers:
+    - email: ruben@conduction.nl
+      name: Ruben van der Linde
+    - email: info@conduction.nl
+      name: Conduction
+    name: review-component
+    sources:
+    - https://commonground.conduction.nl/
+    - https://www.commonground.nl/
+    urls:
+    - review-component-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-03-12T13:01:56.1603765Z"
-    description: '&amp;#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
-      interface beschikbaar.&amp;#039;'
-    digest: 986c368e940a3d5d776a052d1fcb03e32ecfeab6f14eeabd67256fe8dc5b4846
+    created: "2021-08-17T12:16:52.2573032Z"
+    description: Het Review Component faciliteert reviews van resources, hoewel we
+      hierbij in eerste instantie denken aan producten vanuit het PDC zou een resource
+      in feite alles kunnen zijn. Onder een review verstaan we een gebruikerservaring,
+      deze ervaring kan zowel worden aangeduid met een cijfer als een een textuele
+      beschrijving. Additioneel biedt het component ondersteuning voor “likes” en
+      het berekenen van totale gemiddelde review resultaten op resources.
+    digest: 1233058b7790bfeb80af789d6262f4c6daba919c29fb4d9926672ce516552821
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -60,4 +138,4 @@ entries:
     urls:
     - review-component-0.1.0.tgz
     version: 0.1.0
-generated: "2021-03-12T13:01:56.1562316Z"
+generated: "2021-08-17T12:16:52.25167Z"
