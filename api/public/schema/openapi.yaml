@@ -11,9 +11,8 @@ info:
     - Repository: [online](https://github.com/ConductionNL/review-component) / [zip](https://github.com/ConductionNL/review-component/archive/master.zip)
     - Docker Image: [online]() 
     - Datamodel: [postman](/schema/review-component.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
-    
-    &#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;         
-    
+
+    Het Review Component faciliteert reviews van resources, hoewel we hierbij in eerste instantie denken aan producten vanuit het PDC zou een resource in feite alles kunnen zijn. Onder een review verstaan we een gebruikerservaring, deze ervaring kan zowel worden aangeduid met een cijfer als een een textuele beschrijving. Additioneel biedt het component ondersteuning voor “likes” en het berekenen van totale gemiddelde review resultaten op resources.         
 paths:
   /aspects:
     get:
@@ -8273,12 +8272,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-12 13:02:01'
+        example: '2021-08-17 12:17:02'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-12 13:02:01'
+        example: '2021-08-17 12:17:02'
     required: []
   ChangeLog-write:
     properties:
@@ -8392,12 +8391,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-12 13:02:01'
+        example: '2021-08-17 12:17:02'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-12 13:02:01'
+        example: '2021-08-17 12:17:02'
     required: []
   AuditTrail-write:
     properties:
@@ -8410,39 +8409,35 @@ definitions:
 tags:
   -
     name: Review
-    description: |
+    description: |+
       A review of an item - for example, of a restaurant, movie, or store.
-      
-      
+
   -
     name: Rating
-    description: |
+    description: |+
       A rating of a single aspect within a review, there by allowing a person to rate for examle the color of a product on a numeric scale.
-      
-      
+
   -
     name: Like
-    description: |
+    description: |+
       The act of expressing a positive sentiment about the resource. An author likes an resource (a proposition, topic or theme) with participants.
-      
-      
+
   -
     name: Aspect
-    description: |
+    description: |+
       A aspect that can be rated, e.g. the color of a product or appearence of a location.
-      
-      
+
   -
     name: ChangeLog
-    description: |
+    description: |-
       An resource representing a log line.
-      
+
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
     name: AuditTrail
-    description: |
+    description: |-
       An resource representing a log line.
-      
+
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
 securityDefinitions:
   JWT-Oauth:
